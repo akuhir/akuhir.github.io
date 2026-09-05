@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Portal - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Scoped override for the login page only, matched to reference design */
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .login-page {
+            background: linear-gradient(160deg, #f4f7fb 0%, #e9eef5 55%, #0d4f8a 100%);
+            padding: 0;
+            min-height: 100vh;
+            align-items: flex-start;
+        }
+
+        .login-container {
+            padding: 32px 24px 40px;
+            width: 100%;
+            min-height: 100vh;
+            align-items: flex-start;
+            box-sizing: border-box;
+        }
+
+        .login-card {
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            background: transparent;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .login-logo {
+            max-width: 130px;
+        }
+
+        .login-header h1 {
+            color: #0a2540;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 1.35;
+        }
+
+        .login-header p {
+            color: #0a2540;
+        }
+
+        .login-header .institution-name {
+            color: #3a4a5c !important;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-size: 0.85rem !important;
+        }
+
+        .login-form-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0a2540;
+            margin-top: 20px;
+        }
+
+        .login-form-subtitle {
+            text-align: center;
+            color: #3a4a5c;
+            font-size: 0.9rem;
+            margin: 8px 0 24px;
+            line-height: 1.4;
+        }
+
+        .login-form {
+            background: var(--accent);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group label {
+            display: none;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            border-radius: 10px;
+            padding: 14px 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #004b87;
+            box-shadow: 0 0 0 3px rgba(0, 75, 135, 0.15);
+        }
+
+        .form-group:has(#rememberMe) {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group:has(#rememberMe) label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        #rememberMe {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            accent-color: #004b87;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            background: #004b87;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #003557;
+        }
+
+        .login-footer {
+            text-align: center;
+            color: #3a4a5c;
+            font-size: 0.85rem;
+            border-top: none;
+            padding-top: 20px;
+        }
+
+        .login-footer a {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .login-page-footer {
+            display: none;
+        }
+
+        .theme-toggle-login {
+            top: 16px;
+            right: 16px;
+        }
+    </style>
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="images/logo.png" alt="AKUM Logo" class="login-logo">
+                <h3>DEPARTMENT OF<br>HISTORY & INTERNATIONAL RELATIONS</h3>
+                <p class="institution-name">Abdulkadir Kure University, Minna</p>
+            </div>
+
+            <p class="login-form-title">HOMO SAPIENS PORTAL</p>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="matricNumber">Matric Number</label>
+                    <input 
+                        type="text" 
+                        id="matricNumber" 
+                        placeholder="Enter Matric Number" 
+                        required
+                    >
+                    <span class="error-message" id="matricError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentName">Your Name (any part)</label>
+                    <input 
+                        type="text" 
+                        id="studentName" 
+                        placeholder="Enter any of your name" 
+                        required
+                    >
+                    <span class="error-message" id="nameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="rememberMe">
+                        <input type="checkbox" id="rememberMe">
+                        Remember me for 30 days
+                    </label>
+                </div>
+            </form>
+
+            <button type="submit" form="loginForm" class="login-btn">🔒 Login</button>
+
+            <div class="login-footer">
+                <p>Issues accessing? <a href="mailto:abubakarnurudeen072188@gmail.com">Contact Administrator</a></p>
+                <p style="margin-top: 14px; font-size: 0.78rem;">© 2026 History & International Relations Department<br>Abdulkadir Kure University, Minna.</p>
+            </div>
+        </div>
+
+        <div class="theme-toggle-login">
+            <button id="themeToggleLogin" class="theme-btn" title="Toggle dark mode">
+                🌙
+            </button>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKUM H.I.R 2024 CLASS Portal - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Header with Hamburger Menu -->
+    <header class="navbar">
+        <button class="hamburger-menu" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="navbar-title">AKUM H.I.R 2024</div>
+        <div class="navbar-controls">
+            <img src="images/logo.png" alt="AKUM Logo" class="navbar-logo-brand" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='inline';">
+            <span id="logoFallback" style="display:none; font-size:1.4rem; font-weight:700; color:#fff;">🎓</span>
+        </div>
+    </header>
+
+    <!-- Side Navigation Menu -->
+    <nav class="side-navbar" id="sideNavbar">
+        <a href="#home" class="nav-link active" data-section="home"><i data-lucide="house" aria-hidden="true"></i>HOME</a>
+        <a href="#announcements" class="nav-link" data-section="announcements"><i data-lucide="megaphone" aria-hidden="true"></i>ANNOUNCEMENTS</a>
+        <a href="#chat" class="nav-link" data-section="chat"><i data-lucide="message-circle" aria-hidden="true"></i>💬 CHAT</a>
+        <a href="#assignments" class="nav-link" data-section="assignments"><i data-lucide="clipboard-list" aria-hidden="true"></i>ASSIGNMENTS</a>
+        <a href="#lecture-notes" class="nav-link" data-section="lecture-notes"><i data-lucide="book-open" aria-hidden="true"></i>LECTURE NOTES</a>
+        <a href="#photos" class="nav-link" data-section="photos"><i data-lucide="images" aria-hidden="true"></i>PHOTOS</a>
+        <a href="#videos" class="nav-link" data-section="videos"><i data-lucide="play-square" aria-hidden="true"></i>VIDEOS</a>
+        <a href="#class-members" class="nav-link" data-section="class-members"><i data-lucide="users" aria-hidden="true"></i>CLASS MEMBERS</a>
+        <a href="#contact" class="nav-link" data-section="contact"><i data-lucide="mail" aria-hidden="true"></i>CONTACT</a>
+        <button id="themeToggle" class="nav-link nav-theme-btn" title="Toggle dark mode">🌙 DARK MODE</button>
+        <button id="logoutBtn" class="nav-link nav-logout-btn">⏻ LOGOUT</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <div class="hero-section">
+                <div class="class-photo">
+                    <img src="images/classphoto.jpg" alt="AKUM H.I.R 2024 Class Photo">
+                </div>
+            </div>
+
+            <div class="home-grid">
+                <div class="welcome-card">
+                    <h2>Welcome to AKUM H.I.R 2024 Class Portal</h2>
+                    <p>Your central hub for announcements, assignments, lecture notes, class materials and more. Stay connected with your History & International Relations class.</p>
+                    <p class="user-info">Logged in as: <strong id="userDisplay"></strong></p>
+                </div>
+
+                <div class="department-card">
+                    <div class="dept-logo">📚</div>
+                    <h3>Department</h3>
+                    <p>History & International Relations</p>
+                    <p style="font-size: 0.85rem; margin-top: 5px;">Abdulkadir Kure University, Minna</p>
+                </div>
+
+                <div class="quick-stats">
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Announcements</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Assignments</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Lecture Notes</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Announcements Section -->
+        <section id="announcements" class="content-section">
+            <div class="section-header">
+                <h2>📢 Announcements</h2>
+            </div>
+            <div class="announcements-container">
+                <div class="announcement-card">
+                    <div class="announcement-date">Today</div>
+                    <h3>Welcome to the AKUM H.I.R 2024 Class Portal</h3>
+                    <p>Welcome to our History & International Relations Class Portal. This is your dedicated space where all course materials, assignments, and class information will be shared. Make sure to check regularly for updates and stay connected with your class!</p>
+                </div>
+                <div class="announcement-card">
+                    <div class="announcement-date">Today</div>
+                    <h3>A Portal of Memories & Knowledge</h3>
+                    <p>This portal is created to store all our information and memories so that we can always access them whenever we need - even after 50 years of our graduation, this portal will be active and serve as a timeless connection to our class and shared experiences.</p>
+                </div>
+                <div class="announcement-card">
+                    <div class="announcement-date">Today</div>
+                    <h3>Motivational Quote</h3>
+                    <p><strong>"Cogito ergo sum"</strong> - I think, therefore I am. Let this philosophy guide us as we embark on this journey of learning and discovery together.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assignments Section -->
+        <section id="assignments" class="content-section">
+            <div class="section-header">
+                <h2>✏️ Assignments</h2>
+            </div>
+            <div class="assignments-info-card">
+                <h3>All Assignments</h3>
+                <p>Access all assignments, instructions, and submission guidelines in the Google Drive folder below:</p>
+                <a href="https://drive.google.com/drive/folders/1oO91AE7ut9D-6tl25gT373Fub84W7vEx" target="_blank" class="btn-drive-large"><i data-lucide="clipboard-list" aria-hidden="true"></i>
+                    📁 Open Assignments Folder
+                </a>
+                <p style="margin-top: 20px; font-size: 0.9rem; color: var(--text-light);">
+                    All assignment files, deadlines, and submission details are available in the Google Drive folder above. Please check regularly for updates and ensure you submit your work on time.
+                </p>
+            </div>
+        </section>
+
+        <!-- Lecture Notes Section -->
+        <section id="lecture-notes" class="content-section">
+            <div class="section-header">
+                <h2>📖 Lecture Notes</h2>
+                <div class="drive-button-container">
+                    <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="btn-drive"><i data-lucide="book-open" aria-hidden="true"></i>
+                        📁 Open Lecture Notes Folder
+                    </a>
+                </div>
+            </div>
+            <div class="lecture-notes-container">
+                <div class="lecture-card">
+                    <div class="lecture-date">Week 1</div>
+                    <h3>Introduction to History & International Relations</h3>
+                    <p>Overview of the course, key concepts, and interdisciplinary approaches in H.I.R</p>
+                    <div class="lecture-files">
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="file-link">📄 View in Drive</a>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-date">Week 2</div>
+                    <h3>Historical Analysis and Research Methods</h3>
+                    <p>How to conduct historical research and analyze international relations documents</p>
+                    <div class="lecture-files">
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="file-link">📄 View in Drive</a>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-date">Week 3</div>
+                    <h3>Case Studies in Modern History</h3>
+                    <p>Examination of significant historical events and their international significance</p>
+                    <div class="lecture-files">
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="file-link">📄 View in Drive</a>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-date">Week 4</div>
+                    <h3>International Relations Theory</h3>
+                    <p>Theoretical frameworks for understanding international relations and history</p>
+                    <div class="lecture-files">
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="file-link">📄 View in Drive</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Class Photos Section -->
+        <section id="photos" class="content-section">
+            <div class="section-header">
+                <h2>📷 Class Photos</h2>
+                <div class="drive-button-container">
+                    <a href="https://drive.google.com/drive/folders/1Z4SbjeLzsa9hy1riXlYtO1-I6IlMjBy5" target="_blank" class="btn-drive"><i data-lucide="images" aria-hidden="true"></i>
+                        📁 Click to See More Photos
+                    </a>
+                </div>
+            </div>
+            <div class="photos-grid">
+                <div class="photo-item">
+                    <img src="images/photo1.jpg" alt="Class Photo 1">
+                    <p>Class Photo 1</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo2.jpg" alt="Class Photo 2">
+                    <p>Class Photo 2</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo3.jpg" alt="Class Photo 3">
+                    <p>Class Photo 3</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo4.jpg" alt="Class Photo 4">
+                    <p>Class Photo 4</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo5.jpg" alt="Class Photo 5">
+                    <p>Class Photo 5</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo6.jpg" alt="Class Photo 6">
+                    <p>Class Photo 6</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo7.jpg" alt="Class Photo 7">
+                    <p>Class Photo 7</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo8.jpg" alt="Class Photo 8">
+                    <p>Class Photo 8</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo9.jpg" alt="Class Photo 9">
+                    <p>Class Photo 9</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo10.jpg" alt="Class Photo 10">
+                    <p>Class Photo 10</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo11.jpg" alt="Class Photo 11">
+                    <p>Class Photo 11</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo12.jpg" alt="Class Photo 12">
+                    <p>Class Photo 12</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo13.jpg" alt="Class Photo 13">
+                    <p>Class Photo 13</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo14.jpg" alt="Class Photo 14">
+                    <p>Class Photo 14</p>
+                </div>
+                <div class="photo-item">
+                    <img src="images/photo15.jpg" alt="Class Photo 15">
+                    <p>Class Photo 15</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Videos Section -->
+        <section id="videos" class="content-section">
+            <div class="section-header">
+                <h2>🎬 Class Videos</h2>
+                <div class="drive-button-container">
+                    <a href="https://drive.google.com/drive/folders/1bEi9B4mSGAPGFV6YhdduTtrPrSNICIUv" target="_blank" class="btn-drive"><i data-lucide="play-square" aria-hidden="true"></i>
+                        📁 View More Videos
+                    </a>
+                </div>
+            </div>
+            <div class="videos-grid">
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button">▶</div>
+                        <p>Lecture Recording</p>
+                    </div>
+                    <p class="video-title">Week 1: Course Introduction</p>
+                    <p class="video-date">View on Drive</p>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button">▶</div>
+                        <p>Lecture Recording</p>
+                    </div>
+                    <p class="video-title">Week 2: Research Methods</p>
+                    <p class="video-date">View on Drive</p>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button">▶</div>
+                        <p>Lecture Recording</p>
+                    </div>
+                    <p class="video-title">Week 3: Case Studies</p>
+                    <p class="video-date">View on Drive</p>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button">▶</div>
+                        <p>Seminar Video</p>
+                    </div>
+                    <p class="video-title">Class Discussion Session</p>
+                    <p class="video-date">View on Drive</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Class Members Section -->
+        <section id="class-members" class="content-section">
+            <div class="section-header">
+                <h2>👥 Class Members</h2>
+            </div>
+            <div class="class-members-container">
+                <div class="member-card">
+                    <div class="member-number">1</div>
+                    <div class="member-info">
+                        <h3>Ameena Mahmood Umar</h3>
+                        <p class="matric">AKU24/FE/HIS/1002</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">2</div>
+                    <div class="member-info">
+                        <h3>Firdausi Yusuf</h3>
+                        <p class="matric">AKU24/FE/HIS/1003</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">3</div>
+                    <div class="member-info">
+                        <h3>Aminu Anita Adamu</h3>
+                        <p class="matric">AKU24/FE/HIS/1004</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">4</div>
+                    <div class="member-info">
+                        <h3>Muhammad Bilkisu Awwal</h3>
+                        <p class="matric">AKU24/FE/HIS/1005</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">5</div>
+                    <div class="member-info">
+                        <h3>Chinedu Kamara Fortune</h3>
+                        <p class="matric">AKU24/FE/HIS/1006</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">6</div>
+                    <div class="member-info">
+                        <h3>Sani Blessing</h3>
+                        <p class="matric">AKU24/FE/HIS/1007</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">7</div>
+                    <div class="member-info">
+                        <h3>Hassan Ahmad</h3>
+                        <p class="matric">AKU24/FE/HIS/1008</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">8</div>
+                    <div class="member-info">
+                        <h3>Ahmed Nma Muhammed</h3>
+                        <p class="matric">AKU24/FE/HIS/1009</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">9</div>
+                    <div class="member-info">
+                        <h3>Sumayya Muhammad Sa'idu</h3>
+                        <p class="matric">AKU24/FE/HIS/1010</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">10</div>
+                    <div class="member-info">
+                        <h3>Okishang Maria Iripia</h3>
+                        <p class="matric">AKU24/FE/HIS/1011</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">11</div>
+                    <div class="member-info">
+                        <h3>Salim Yunusa</h3>
+                        <p class="matric">AKU24/FE/HIS/1012</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">12</div>
+                    <div class="member-info">
+                        <h3>Abduljalal Kabir</h3>
+                        <p class="matric">AKU24/FE/HIS/1013</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">13</div>
+                    <div class="member-info">
+                        <h3>Rashida Musa</h3>
+                        <p class="matric">AKU24/FE/HIS/1014</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">14</div>
+                    <div class="member-info">
+                        <h3>Faridat M. Ibrahim</h3>
+                        <p class="matric">AKU24/FE/HIS/1015</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">15</div>
+                    <div class="member-info">
+                        <h3>Aisha Ibrahim</h3>
+                        <p class="matric">AKU24/FE/HIS/1016</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">16</div>
+                    <div class="member-info">
+                        <h3>Musa Sadiq Ambursa</h3>
+                        <p class="matric">AKU24/FE/HIS/1017</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">17</div>
+                    <div class="member-info">
+                        <h3>Tanko Shekwonuzayi Glory</h3>
+                        <p class="matric">AKU24/FE/HIS/1018</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">18</div>
+                    <div class="member-info">
+                        <h3>Yusuf Hauwa</h3>
+                        <p class="matric">AKU24/FE/HIS/1019</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">19</div>
+                    <div class="member-info">
+                        <h3>Maryam Umar Wushishi</h3>
+                        <p class="matric">AKU24/FE/HIS/1020</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">20</div>
+                    <div class="member-info">
+                        <h3>Abdullahi Suleiman</h3>
+                        <p class="matric">AKU24/FE/HIS/1021</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">21</div>
+                    <div class="member-info">
+                        <h3>Usman Shehu Wada</h3>
+                        <p class="matric">AKU24/FE/HIS/1022</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">22</div>
+                    <div class="member-info">
+                        <h3>Nwakacha Ifeoma Angela</h3>
+                        <p class="matric">AKU24/FE/HIS/1023</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">23</div>
+                    <div class="member-info">
+                        <h3>Ahmed Nurudeen Muhammed</h3>
+                        <p class="matric">AKU24/FE/HIS/1024</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">24</div>
+                    <div class="member-info">
+                        <h3>Ugochukwu Victory Chukma</h3>
+                        <p class="matric">AKU24/FE/HIS/1025</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">25</div>
+                    <div class="member-info">
+                        <h3>Suraiya Adamu</h3>
+                        <p class="matric">AKU24/FE/HIS/1026</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">26</div>
+                    <div class="member-info">
+                        <h3>Sule Dorathy</h3>
+                        <p class="matric">AKU24/FE/HIS/1027</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">27</div>
+                    <div class="member-info">
+                        <h3>Sesugh Vadoo Lovely</h3>
+                        <p class="matric">AKU24/FE/HIS/1028</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">28</div>
+                    <div class="member-info">
+                        <h3>Sesugh Nadoo Precious</h3>
+                        <p class="matric">AKU24/FE/HIS/1029</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">29</div>
+                    <div class="member-info">
+                        <h3>Abubakar Lawal Aliyu</h3>
+                        <p class="matric">AKU24/FE/HIS/1030</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">30</div>
+                    <div class="member-info">
+                        <h3>Yusuf Tasiu</h3>
+                        <p class="matric">AKU24/FE/HIS/1031</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">31</div>
+                    <div class="member-info">
+                        <h3>Amina Bala Muhammad</h3>
+                        <p class="matric">AKU24/FE/HIS/1032</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">32</div>
+                    <div class="member-info">
+                        <h3>Amina Shuaibu Wachiko</h3>
+                        <p class="matric">AKU24/FE/HIS/1033</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">33</div>
+                    <div class="member-info">
+                        <h3>Muhammad Nurudeen Abubakar</h3>
+                        <p class="matric">AKU24/FE/HIS/1034</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">34</div>
+                    <div class="member-info">
+                        <h3>Amodu Blessing Ojochenemi</h3>
+                        <p class="matric">AKU24/FE/HIS/1035</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">35</div>
+                    <div class="member-info">
+                        <h3>Ajibade Ayobami Deborah</h3>
+                        <p class="matric">AKU24/FE/HIS/1036</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">36</div>
+                    <div class="member-info">
+                        <h3>Precious Boluwatife Badmus</h3>
+                        <p class="matric">AKU24/FE/HIS/1037</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">37</div>
+                    <div class="member-info">
+                        <h3>Evelyn Joshua Malgwi</h3>
+                        <p class="matric">AKU25/FEDU/HIS/2001</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">38</div>
+                    <div class="member-info">
+                        <h3>Usman Bello</h3>
+                        <p class="matric">AKU25/FEDU/HIS/2002</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact/Admin Section -->
+        <section id="contact" class="content-section">
+            <div class="section-header">
+                <h2>👤 Contact & Administrator</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-card">
+                    <h3>Course Administrator</h3>
+                    <div class="admin-info">
+                        <p><strong>Name:</strong> Abubakar Muhammad Nurudeen</p>
+                        <p><strong>Email:</strong> <a href="mailto:abubakarnurudeen072188@gmail.com">abubakarnurudeen072188@gmail.com</a></p>
+                        <p><strong>Phone:</strong> <a href="tel:09017769742">09017769742</a></p>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-light);">
+                            For issues accessing the portal, assignment submissions, or course-related inquiries, please contact the administrator.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <h3>Quick Links</h3>
+                    <div class="quick-links">
+                        <a href="https://forms.gle/g2GkgZWvnDixEJWZA" target="_blank" class="quick-link">📝 Upload here</a>
+                        <a href="https://drive.google.com/drive/folders/1oO91AE7ut9D-6tl25gT373Fub84W7vEx" target="_blank" class="quick-link"><i data-lucide="clipboard-list" aria-hidden="true"></i>📁 All Assignments</a>
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="quick-link">📚 Lecture Materials</a>
+                        <a href="https://drive.google.com/drive/folders/1Z4SbjeLzsa9hy1riXlYtO1-I6IlMjBy5" target="_blank" class="quick-link"><i data-lucide="images" aria-hidden="true"></i>📷 Class Photos</a>
+                        <a href="https://drive.google.com/drive/folders/1bEi9B4mSGAPGFV6YhdduTtrPrSNICIUv" target="_blank" class="quick-link"><i data-lucide="play-square" aria-hidden="true"></i>🎬 Class Videos</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Chat Section -->
+        <section id="chat" class="content-section">
+            <div class="section-header">
+                <h2>💬 Class Chat Room</h2>
+            </div>
+            <div class="chat-wrapper">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-loading">Connecting to chat...</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Type a message..." maxlength="500" autocomplete="off">
+                    <button id="chatSendBtn" class="chat-send-btn">Send ➤</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="script.js"></script>
+    <script src="chat.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+});
+</script>
+
+</body>
+</html>
