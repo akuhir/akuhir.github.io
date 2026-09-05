@@ -1185,7 +1185,9 @@ body.dark-mode .side-navbar .nav-link.active {
 }
 
 .btn-drive-large {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     padding: 15px 40px;
     background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
     color: var(--accent);
@@ -1210,7 +1212,9 @@ body.dark-mode .side-navbar .nav-link.active {
 }
 
 .btn-drive {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     padding: 12px 20px;
     background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
     color: var(--accent);
@@ -1226,6 +1230,70 @@ body.dark-mode .side-navbar .nav-link.active {
 .btn-drive:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
+}
+
+/* ========== SECTION END ACTIONS (See More + Upload) ========== */
+.section-end-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border);
+}
+
+.section-end-actions .btn-drive,
+.section-end-actions .btn-drive-large,
+.section-end-actions .btn-upload {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 12px;
+    text-align: left;
+    justify-content: flex-start;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.section-end-actions .btn-drive [data-lucide],
+.section-end-actions .btn-drive-large [data-lucide],
+.section-end-actions .btn-upload [data-lucide] {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.btn-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--accent);
+    color: var(--primary);
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid var(--primary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-upload:hover {
+    background: var(--primary);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.section-end-note {
+    margin: 4px 0 0;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.5;
+    text-align: center;
 }
 
 /* ========== CONTACT SECTION ========== */
