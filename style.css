@@ -1232,7 +1232,7 @@ body.dark-mode .side-navbar .nav-link.active {
     padding: 20px;
     border-radius: 10px;
     box-shadow: var(--shadow);
-    border-top: 4px solid var(--primary);
+    border-left: 5px solid var(--primary);
     display: flex;
     align-items: center;
     gap: 15px;
@@ -1247,15 +1247,14 @@ body.dark-mode .side-navbar .nav-link.active {
 .member-number {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: var(--accent);
-    width: 46px;
-    height: 46px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: -0.5px;
+    font-size: 1.1rem;
     flex-shrink: 0;
 }
 
@@ -1630,12 +1629,6 @@ nav a [data-lucide],
 .resource-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--ui-shadow-hover);
-}
-
-/* Keep the maroon top accent bar on member cards (overrides the generic border above) */
-.member-card {
-  border: none;
-  border-top: 4px solid var(--primary);
 }
 
 /* Buttons */
