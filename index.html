@@ -6,6 +6,40 @@
     <title>AKUM H.I.R CLASS- Home</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Photo lightbox (tap-to-view full photo) */
+        .photo-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .photo-lightbox.active {
+            display: flex;
+        }
+
+        .photo-lightbox img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-lightbox-close {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            color: #ffffff;
+            font-size: 2.2rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <!-- Header with Hamburger Menu -->
@@ -57,7 +91,12 @@
                     <div class="dept-logo"><i data-lucide="library" aria-hidden="true"></i></div>
                     <h3>Department</h3>
                     <p>History & International Relations</p>
-                    <p style="font-size: 0.85rem; margin-top: 5px;">Abdulkadir Kure University, Minna</p> ==================================================== -->
+                    <p style="font-size: 0.85rem; margin-top: 5px;">Abdulkadir Kure University, Minna</p>
+                </div>
+
+            </div>
+
+            <!-- ==================================================== -->
             <!-- ✏️ UPDATE WEEKLY: Quote of the Week + Person of the Week -->
             <!-- Just edit the text inside the two cards below. -->
             <!-- ==================================================== -->
@@ -79,8 +118,8 @@
                         <div id="personPhotoFallback" class="person-photo-fallback" style="display:none;"><i data-lucide="user" aria-hidden="true"></i></div>
                     </div>
                     <!-- 👇 Change the name and shoutout text here -->
-                    <h3 class="person-name">Precious Badmus Boluwatife</h3>
-                    <p class="person-note">To our incredible course rep. Thank you for being the heartbeat of this class. From coordinating with lecturers to keeping every one of us informed and on track, you carry this responsibility with such grace, patience, and quiet strength. You're often the first to show up and the last to rest, always ready to listen, to guide, and to hold things together when it matters most. Your dedication doesn't go unnoticed it's the reason our class runs as smoothly as it does. Thank you for leading with your whole heart. We appreciate you more than words can say.</p>
+                    <h3 class="person-name">Update Name Here</h3>
+                    <p class="person-note">She is the quiet strength that holds our class together — always ready to listen, to guide, and to give more than she's asked for. This week, we celebrate our course rep for her heart, her patience, and her unwavering dedication to all of us.</p>
                 </div>
             </div>
         </section>
@@ -184,52 +223,52 @@
             </div>
             <div class="photos-grid">
                 <div class="photo-item">
-                    <img src="images/photo1.jpg" alt="Class Photo 1">
+                    <img src="images/photo1.jpg" alt="Class Photo 1" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo2.jpg" alt="Class Photo 2">
+                    <img src="images/photo2.jpg" alt="Class Photo 2" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo3.jpg" alt="Class Photo 3">
+                    <img src="images/photo3.jpg" alt="Class Photo 3" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo4.jpg" alt="Class Photo 4">
+                    <img src="images/photo4.jpg" alt="Class Photo 4" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo5.jpg" alt="Class Photo 5">
+                    <img src="images/photo5.jpg" alt="Class Photo 5" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo6.jpg" alt="Class Photo 6">
+                    <img src="images/photo6.jpg" alt="Class Photo 6" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo7.jpg" alt="Class Photo 7">
+                    <img src="images/photo7.jpg" alt="Class Photo 7" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo8.jpg" alt="Class Photo 8">
+                    <img src="images/photo8.jpg" alt="Class Photo 8" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo9.jpg" alt="Class Photo 9">
+                    <img src="images/photo9.jpg" alt="Class Photo 9" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo10.jpg" alt="Class Photo 10">
+                    <img src="images/photo10.jpg" alt="Class Photo 10" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo11.jpg" alt="Class Photo 11">
+                    <img src="images/photo11.jpg" alt="Class Photo 11" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo12.jpg" alt="Class Photo 12">
+                    <img src="images/photo12.jpg" alt="Class Photo 12" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo13.jpg" alt="Class Photo 13">
+                    <img src="images/photo13.jpg" alt="Class Photo 13" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo14.jpg" alt="Class Photo 14">
+                    <img src="images/photo14.jpg" alt="Class Photo 14" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo15.jpg" alt="Class Photo 15">
+                    <img src="images/photo15.jpg" alt="Class Photo 15" onclick="openPhotoLightbox(this.src)">
                 </div>
                 <div class="photo-item">
-                    <img src="images/photo16.jpg" alt="Class Photo 16">
+                    <img src="images/photo16.jpg" alt="Class Photo 16" onclick="openPhotoLightbox(this.src)">
                 </div>
             </div>
             <div class="section-end-actions">
@@ -591,6 +630,22 @@
             </div>
         </section>
     </main>
+
+    <!-- Photo Lightbox (tap a photo to view it full size) -->
+    <div id="photoLightbox" class="photo-lightbox" onclick="closePhotoLightbox()">
+        <span class="photo-lightbox-close" onclick="closePhotoLightbox()">&times;</span>
+        <img id="photoLightboxImg" src="" alt="Full size photo">
+    </div>
+
+    <script>
+        function openPhotoLightbox(src) {
+            document.getElementById('photoLightboxImg').src = src;
+            document.getElementById('photoLightbox').classList.add('active');
+        }
+        function closePhotoLightbox() {
+            document.getElementById('photoLightbox').classList.remove('active');
+        }
+    </script>
 
     <script src="script.js"></script>
 
