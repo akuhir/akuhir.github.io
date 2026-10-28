@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKUM H.I.R CLASS- Home</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Photo lightbox (tap-to-view full photo) */
+        .photo-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .photo-lightbox.active {
+            display: flex;
+        }
+
+        .photo-lightbox img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-lightbox-close {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            color: #ffffff;
+            font-size: 2.2rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Hamburger Menu -->
+    <header class="navbar">
+        <button class="hamburger-menu" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="navbar-title">HOMO SAPIENS</div>
+        <div class="navbar-controls">
+            <img src="images/logo.png" alt="AKUM Logo" class="navbar-logo-brand" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='inline';">
+            <span id="logoFallback" style="display:none;"><i data-lucide="graduation-cap" aria-hidden="true" style="width:26px;height:26px;color:#fff;"></i></span>
+        </div>
+    </header>
+
+    <!-- Side Navigation Menu -->
+    <nav class="side-navbar" id="sideNavbar">
+        <a href="#home" class="nav-link active" data-section="home"><i data-lucide="house" aria-hidden="true"></i>HOME</a>
+        <a href="#admin-dashboard" class="nav-link admin-only" data-section="admin-dashboard" id="adminDashboardNav" hidden><i data-lucide="layout-dashboard" aria-hidden="true"></i>ADMIN DASHBOARD</a>
+        <a href="#announcements" class="nav-link" data-section="announcements"><i data-lucide="megaphone" aria-hidden="true"></i>ANNOUNCEMENTS</a>
+        <a href="#assignments" class="nav-link" data-section="assignments"><i data-lucide="clipboard-list" aria-hidden="true"></i>ASSIGNMENTS</a>
+        <a href="#lecture-notes" class="nav-link" data-section="lecture-notes"><i data-lucide="book-open" aria-hidden="true"></i>LECTURE NOTES</a>
+        <a href="#photos" class="nav-link" data-section="photos"><i data-lucide="images" aria-hidden="true"></i>PHOTOS</a>
+        <a href="#videos" class="nav-link" data-section="videos"><i data-lucide="play-square" aria-hidden="true"></i>VIDEOS</a>
+        <a href="#class-members" class="nav-link" data-section="class-members"><i data-lucide="users" aria-hidden="true"></i>CLASS MEMBERS</a>
+        <a href="#contact" class="nav-link" data-section="contact"><i data-lucide="mail" aria-hidden="true"></i>CONTACT</a>
+        <button id="themeToggle" class="nav-link nav-theme-btn" title="Toggle dark mode"><i data-lucide="moon" aria-hidden="true"></i>DARK MODE</button>
+        <button id="logoutBtn" class="nav-link nav-logout-btn"><i data-lucide="log-out" aria-hidden="true"></i>LOGOUT</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <div class="hero-section">
+                <div class="class-photo">
+                    <img src="images/classphoto.jpg" alt="AKUM H.I.R 2024 Class Photo">
+                </div>
+            </div>
+
+            <div class="home-grid">
+                <div class="welcome-card">
+                    <h2>Welcome to H.I.R Gallery</h2>
+                    <p>Your central hub for announcements, assignments, lecture notes, class materials and more. Stay connected with your History & International Relations class.</p>
+                    <p class="user-info">Logged in as: <strong id="userDisplay"></strong></p>
+                    <!-- ✏️ UPDATE THIS whenever you make changes to the portal -->
+                    <p class="last-updated">Last updated: September 2026</p>
+                </div>
+
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- Monthly spotlight: Quote of the Month + Person of the Month -->
+            <!-- The shared backend updates these cards for every student. -->
+            <!-- ==================================================== -->
+            <div class="spotlight-grid">
+                <div class="quote-card">
+                    <span class="spotlight-label">Quote of the Month</span>
+                    <div class="spotlight-icon"><i data-lucide="quote" aria-hidden="true"></i></div>
+                    <!-- 👇 Change the quote text and author here -->
+                    <p class="quote-text">"You can never cross the ocean unless you are ready to lose sight of the shore."</p>
+                    <p class="quote-author">— André Gide</p>
+                </div>
+
+                <div class="person-card">
+                    <span class="spotlight-label">Person of the Month</span>
+                    <!-- 👇 To show a profile photo, add a file named exactly "Person.jpg" -->
+                    <!-- inside your "images" folder. If it's missing, a default icon shows instead. -->
+                    <div class="person-photo-wrap">
+                        <img src="images/Person.jpg" alt="Person of the Month" class="person-photo" onerror="this.style.display='none'; document.getElementById('personPhotoFallback').style.display='flex';">
+                        <div id="personPhotoFallback" class="person-photo-fallback" style="display:none;"><i data-lucide="user" aria-hidden="true"></i></div>
+                    </div>
+                    <!-- 👇 Change the name and shoutout text here -->
+                    <h3 class="person-name">Precious Boluwatife Badmus</h3>
+                    <p class="person-note">To our incredible course rep. thank you for being the heartbeat of this class. From coordinating with lecturers to keeping every one of us informed and on track, you carry this responsibility with such grace, patience, and quiet strength. You're often the first to show up and the last to rest, always ready to listen, and to hold things together when it matters most. Your dedication doesn't go unnoticed it's the reason our class runs as smoothly as it does. Thank you for leading with your whole heart. We appreciate you more than words can say.
+(And abeg advice MS make him no stress us this semester 🙏😂)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard: weekly spotlight management -->
+        <section id="admin-dashboard" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="layout-dashboard" aria-hidden="true"></i> Admin Dashboard</h2>
+                <p>Manage the Person of the Month and Quote of the Month displayed on the homepage.</p>
+            </div>
+            <div class="admin-dashboard-grid">
+                <div class="admin-editor-card">
+                    <h3><i data-lucide="user-round" aria-hidden="true"></i> Person of the Month</h3>
+                    <form id="personWeekForm">
+                        <label for="personWeekPhoto">Student photo</label>
+                        <input id="personWeekPhoto" name="photo" type="file" accept="image/*">
+                        <div class="admin-photo-preview-wrap"><img id="personWeekPhotoPreview" class="admin-photo-preview" alt="Selected person preview" hidden></div>
+                        <label for="personWeekName">Student name</label>
+                        <input id="personWeekName" name="name" type="text" maxlength="120" placeholder="Enter the student's full name" required>
+                        <label for="personWeekDescription">Description</label>
+                        <textarea id="personWeekDescription" name="description" rows="5" maxlength="1800" placeholder="Write a short appreciation or biography" required></textarea>
+                        <div class="admin-form-actions">
+                            <button class="btn-primary" type="submit">Save Person of the Month</button>
+                            <button class="btn-danger" id="deletePersonWeek" type="button">Delete Person</button>
+                        </div>
+                        <p class="admin-form-message" id="personWeekMessage" role="status"></p>
+                    </form>
+                </div>
+                <div class="admin-editor-card">
+                    <h3><i data-lucide="quote" aria-hidden="true"></i> Quote of the Month</h3>
+                    <form id="quoteWeekForm">
+                        <label for="quoteWeekText">Quote</label>
+                        <textarea id="quoteWeekText" name="quote" rows="5" maxlength="1200" placeholder="Write the quote here" required></textarea>
+                        <label for="quoteWeekAuthor">Quote owner / author</label>
+                        <input id="quoteWeekAuthor" name="author" type="text" maxlength="120" placeholder="Who said this?" required>
+                        <div class="admin-form-actions">
+                            <button class="btn-primary" type="submit">Save Quote of the Month</button>
+                            <button class="btn-danger" id="deleteQuoteWeek" type="button">Delete Quote</button>
+                        </div>
+                        <p class="admin-form-message" id="quoteWeekMessage" role="status"></p>
+                    </form>
+                </div>
+            </div>
+            <p class="admin-storage-note"><i data-lucide="info" aria-hidden="true"></i> Published changes are loaded from the shared backend so all students can see the same monthly spotlight. If the backend is unavailable, the homepage keeps its default content.</p>
+        </section>
+
+        <!-- Announcements Section -->
+        <section id="announcements" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="megaphone" aria-hidden="true"></i> Announcements</h2>
+            </div>
+            <div class="announcements-container">
+                <div class="announcement-card">
+                    <div class="announcement-date">Today</div>
+                    <h3>Welcome to the AKUM H.I.R 2024 Class Portal</h3>
+                    <p>Welcome to our History & International Relations Class Portal. This is your dedicated space where all course materials, assignments, and class information will be shared. Make sure to check regularly for updates and stay connected with your class!</p>
+                </div>
+                <div class="announcement-card">
+                    <div class="announcement-date">Today</div>
+                    <h3>A Portal of Memories & Knowledge</h3>
+                    <p>This portal is created to store all our information and memories so that we can always access them whenever we need - even after 50 years of our graduation, this portal will be active and serve as a timeless connection to our class and shared experiences.</p>
+                </div>
+                <div class="announcement-card">
+                    <div class="announcement-date">Today</div>
+                    <h3>Motivational Quote</h3>
+                    <p><strong>"Cogito ergo sum"</strong> - I think, therefore I am. Let this philosophy guide us as we embark on this journey of learning and discovery together.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assignments Section -->
+        <section id="assignments" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="clipboard-list" aria-hidden="true"></i> Assignments</h2>
+            </div>
+            <div class="assignments-info-card">
+                <h3>All Assignments</h3>
+                <p>Access all assignments, instructions, and submission guidelines in the Google Drive folder below:</p>
+                <p style="margin-top: 20px; font-size: 0.9rem; color: var(--text-light);">
+                    All assignment files, deadlines, and submission details are available in the Google Drive folder above. Please check regularly for updates and ensure you submit your work on time.
+                </p>
+                <div class="section-end-actions">
+                    <a href="https://drive.google.com/drive/folders/1oO91AE7ut9D-6tl25gT373Fub84W7vEx" target="_blank" class="btn-drive-large"><i data-lucide="clipboard-list" aria-hidden="true"></i> See More</a>
+                    <a href="https://forms.gle/g2GkgZWvnDixEJWZA" target="_blank" class="btn-upload"><i data-lucide="file-plus" aria-hidden="true"></i> Upload assignments here</a>
+                    <p class="section-end-note">Your uploaded assignments will be in the folder, press "See more" to see your assignments.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lecture Notes Section -->
+        <section id="lecture-notes" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="book-open" aria-hidden="true"></i> Lecture Notes</h2>
+            </div>
+            <div class="lecture-notes-container">
+                <div class="lecture-card">
+                    <div class="lecture-date">Week 1</div>
+                    <h3>Introduction to History & International Relations</h3>
+                    <p>Overview of the course, key concepts, and interdisciplinary approaches in H.I.R</p>
+                    <div class="lecture-files">
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="file-link"><i data-lucide="file-text" aria-hidden="true"></i> View in Drive</a>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-date">Week 2</div>
+                    <h3>Historical Analysis and Research Methods</h3>
+                    <p>How to conduct historical research and analyze international relations documents</p>
+                    <div class="lecture-files">
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="file-link"><i data-lucide="file-text" aria-hidden="true"></i> View in Drive</a>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-date">Week 3</div>
+                    <h3>Case Studies in Modern History</h3>
+                    <p>Examination of significant historical events and their international significance</p>
+                    <div class="lecture-files">
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="file-link"><i data-lucide="file-text" aria-hidden="true"></i> View in Drive</a>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-date">Week 4</div>
+                    <h3>International Relations Theory</h3>
+                    <p>Theoretical frameworks for understanding international relations and history</p>
+                    <div class="lecture-files">
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="file-link"><i data-lucide="file-text" aria-hidden="true"></i> View in Drive</a>
+                    </div>
+                </div>
+            </div>
+            <div class="section-end-actions">
+                <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="btn-drive"><i data-lucide="book-open" aria-hidden="true"></i> See More</a>
+                <a href="https://forms.gle/g2GkgZWvnDixEJWZA" target="_blank" class="btn-upload"><i data-lucide="file-plus" aria-hidden="true"></i> Upload notes here</a>
+                <p class="section-end-note">Your uploaded notes will be in the folder, press "See more" to see your notes.</p>
+            </div>
+        </section>
+
+        <!-- Class Photos Section -->
+        <section id="photos" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="camera" aria-hidden="true"></i> Class Photos</h2>
+            </div>
+            <div class="photos-grid">
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo1.jpg" alt="Class Photo 1" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo2.jpg" alt="Class Photo 2" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo3.jpg" alt="Class Photo 3" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo4.jpg" alt="Class Photo 4" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo5.jpg" alt="Class Photo 5" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo6.jpg" alt="Class Photo 6" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo7.jpg" alt="Class Photo 7" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo8.jpg" alt="Class Photo 8" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo9.jpg" alt="Class Photo 9" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo10.jpg" alt="Class Photo 10" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo11.jpg" alt="Class Photo 11" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo12.jpg" alt="Class Photo 12" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo13.jpg" alt="Class Photo 13" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo14.jpg" alt="Class Photo 14" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo15.jpg" alt="Class Photo 15" onclick="openPhotoLightbox(this.src)">
+                </div>
+                <div class="photo-item">
+                    <img loading="lazy" src="images/photo16.jpg" alt="Class Photo 16" onclick="openPhotoLightbox(this.src)">
+                </div>
+            </div>
+            <div class="section-end-actions">
+                <a href="https://drive.google.com/drive/folders/1Z4SbjeLzsa9hy1riXlYtO1-I6IlMjBy5" target="_blank" class="btn-drive"><i data-lucide="images" aria-hidden="true"></i> See More</a>
+                <a href="https://forms.gle/g2GkgZWvnDixEJWZA" target="_blank" class="btn-upload"><i data-lucide="file-plus" aria-hidden="true"></i> Upload photos here</a>
+                <p class="section-end-note">Your uploaded photos will be in the folder, press "See more" to see your photos.</p>
+            </div>
+        </section>
+
+        <!-- Videos Section -->
+        <section id="videos" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="video" aria-hidden="true"></i> Class Videos</h2>
+            </div>
+            <div class="videos-grid">
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button"><i data-lucide="play" aria-hidden="true"></i></div>
+                        <p>Lecture Recording</p>
+                    </div>
+                    <p class="video-title">Week 1: Course Introduction</p>
+                    <p class="video-date">View on Drive</p>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button"><i data-lucide="play" aria-hidden="true"></i></div>
+                        <p>Lecture Recording</p>
+                    </div>
+                    <p class="video-title">Week 2: Research Methods</p>
+                    <p class="video-date">View on Drive</p>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button"><i data-lucide="play" aria-hidden="true"></i></div>
+                        <p>Lecture Recording</p>
+                    </div>
+                    <p class="video-title">Week 3: Case Studies</p>
+                    <p class="video-date">View on Drive</p>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button"><i data-lucide="play" aria-hidden="true"></i></div>
+                        <p>Seminar Video</p>
+                    </div>
+                    <p class="video-title">Class Discussion Session</p>
+                    <p class="video-date">View on Drive</p>
+                </div>
+            </div>
+            <div class="section-end-actions">
+                <a href="https://drive.google.com/drive/folders/1bEi9B4mSGAPGFV6YhdduTtrPrSNICIUv" target="_blank" class="btn-drive"><i data-lucide="play-square" aria-hidden="true"></i> See More</a>
+                <a href="https://forms.gle/g2GkgZWvnDixEJWZA" target="_blank" class="btn-upload"><i data-lucide="file-plus" aria-hidden="true"></i> Upload videos here</a>
+                <p class="section-end-note">Your uploaded videos will be in the folder, press "See more" to see your videos.</p>
+            </div>
+        </section>
+
+        <!-- Class Members Section -->
+        <section id="class-members" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="users" aria-hidden="true"></i> Class Members</h2>
+            </div>
+            <div class="member-year-group" aria-labelledby="members-aku24">
+                <h3 class="member-year-heading" id="members-aku24">AKU24</h3>
+                <div class="class-members-container">
+                <div class="member-card">
+                    <div class="member-number">1</div>
+                    <div class="member-info">
+                        <h3>Ameena Mahmood Umar</h3>
+                        <p class="matric">AKU24/FE/HIS/1002</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">2</div>
+                    <div class="member-info">
+                        <h3>Firdausi Yusuf</h3>
+                        <p class="matric">AKU24/FE/HIS/1003</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">3</div>
+                    <div class="member-info">
+                        <h3>Aminu Anita Adamu</h3>
+                        <p class="matric">AKU24/FE/HIS/1004</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">4</div>
+                    <div class="member-info">
+                        <h3>Muhammad Bilkisu Awwal</h3>
+                        <p class="matric">AKU24/FE/HIS/1005</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">5</div>
+                    <div class="member-info">
+                        <h3>Chinedu Kamara Fortune</h3>
+                        <p class="matric">AKU24/FE/HIS/1006</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">6</div>
+                    <div class="member-info">
+                        <h3>Sani Blessing</h3>
+                        <p class="matric">AKU24/FE/HIS/1007</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">7</div>
+                    <div class="member-info">
+                        <h3>Hassan Ahmad</h3>
+                        <p class="matric">AKU24/FE/HIS/1008</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">8</div>
+                    <div class="member-info">
+                        <h3>Ahmed Nma Muhammed</h3>
+                        <p class="matric">AKU24/FE/HIS/1009</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">9</div>
+                    <div class="member-info">
+                        <h3>Sumayya Muhammad Sa'idu</h3>
+                        <p class="matric">AKU24/FE/HIS/1010</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">10</div>
+                    <div class="member-info">
+                        <h3>Okishang Maria Iripia</h3>
+                        <p class="matric">AKU24/FE/HIS/1011</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">11</div>
+                    <div class="member-info">
+                        <h3>Salim Yunusa</h3>
+                        <p class="matric">AKU24/FE/HIS/1012</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">12</div>
+                    <div class="member-info">
+                        <h3>Abduljalal Kabir</h3>
+                        <p class="matric">AKU24/FE/HIS/1013</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">13</div>
+                    <div class="member-info">
+                        <h3>Rashida Musa</h3>
+                        <p class="matric">AKU24/FE/HIS/1014</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">14</div>
+                    <div class="member-info">
+                        <h3>Faridat M. Ibrahim</h3>
+                        <p class="matric">AKU24/FE/HIS/1015</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">15</div>
+                    <div class="member-info">
+                        <h3>Aisha Ibrahim</h3>
+                        <p class="matric">AKU24/FE/HIS/1016</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">16</div>
+                    <div class="member-info">
+                        <h3>Musa Sadiq Ambursa</h3>
+                        <p class="matric">AKU24/FE/HIS/1017</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">17</div>
+                    <div class="member-info">
+                        <h3>Tanko Shekwonuzayi Glory</h3>
+                        <p class="matric">AKU24/FE/HIS/1018</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">18</div>
+                    <div class="member-info">
+                        <h3>Yusuf Hauwa</h3>
+                        <p class="matric">AKU24/FE/HIS/1019</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">19</div>
+                    <div class="member-info">
+                        <h3>Maryam Umar Wushishi</h3>
+                        <p class="matric">AKU24/FE/HIS/1020</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">20</div>
+                    <div class="member-info">
+                        <h3>Abdullahi Suleiman</h3>
+                        <p class="matric">AKU24/FE/HIS/1021</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">21</div>
+                    <div class="member-info">
+                        <h3>Usman Shehu Wada</h3>
+                        <p class="matric">AKU24/FE/HIS/1022</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">22</div>
+                    <div class="member-info">
+                        <h3>Nwakacha Ifeoma Angela</h3>
+                        <p class="matric">AKU24/FE/HIS/1023</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">23</div>
+                    <div class="member-info">
+                        <h3>Ahmed Nurudeen Muhammed</h3>
+                        <p class="matric">AKU24/FE/HIS/1024</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">24</div>
+                    <div class="member-info">
+                        <h3>Ugochukwu Victory Chukma</h3>
+                        <p class="matric">AKU24/FE/HIS/1025</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">25</div>
+                    <div class="member-info">
+                        <h3>Suraiya Adamu</h3>
+                        <p class="matric">AKU24/FE/HIS/1026</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">26</div>
+                    <div class="member-info">
+                        <h3>Sule Dorathy</h3>
+                        <p class="matric">AKU24/FE/HIS/1027</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">27</div>
+                    <div class="member-info">
+                        <h3>Sesugh Vadoo Lovely</h3>
+                        <p class="matric">AKU24/FE/HIS/1028</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">28</div>
+                    <div class="member-info">
+                        <h3>Sesugh Nadoo Precious</h3>
+                        <p class="matric">AKU24/FE/HIS/1029</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">29</div>
+                    <div class="member-info">
+                        <h3>Abubakar Lawal Aliyu</h3>
+                        <p class="matric">AKU24/FE/HIS/1030</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">30</div>
+                    <div class="member-info">
+                        <h3>Yusuf Tasiu</h3>
+                        <p class="matric">AKU24/FE/HIS/1031</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">31</div>
+                    <div class="member-info">
+                        <h3>Amina Bala Muhammad</h3>
+                        <p class="matric">AKU24/FE/HIS/1032</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">32</div>
+                    <div class="member-info">
+                        <h3>Amina Shuaibu Wachiko</h3>
+                        <p class="matric">AKU24/FE/HIS/1033</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">33</div>
+                    <div class="member-info">
+                        <h3>Muhammad Nurudeen Abubakar</h3>
+                        <p class="matric">AKU24/FE/HIS/1034</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">34</div>
+                    <div class="member-info">
+                        <h3>Amodu Blessing Ojochenemi</h3>
+                        <p class="matric">AKU24/FE/HIS/1035</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">35</div>
+                    <div class="member-info">
+                        <h3>Ajibade Ayobami Deborah</h3>
+                        <p class="matric">AKU24/FE/HIS/1036</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">36</div>
+                    <div class="member-info">
+                        <h3>Precious Boluwatife Badmus</h3>
+                        <p class="matric">AKU24/FE/HIS/1037</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">37</div>
+                    <div class="member-info">
+                        <h3>Evelyn Joshua Malgwi</h3>
+                        <p class="matric">AKU25/FEDU/HIS/2001</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">38</div>
+                    <div class="member-info">
+                        <h3>Usman Bello</h3>
+                        <p class="matric">AKU25/FEDU/HIS/2002</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="member-year-group" aria-labelledby="members-aku25">
+                <h3 class="member-year-heading" id="members-aku25">AKU25</h3>
+                <div class="class-members-container">
+                <div class="member-card">
+                    <div class="member-number">1</div>
+                    <div class="member-info">
+                        <h3>Muhammad Rahinatu</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1001</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">2</div>
+                    <div class="member-info">
+                        <h3>Muhammad Aisha Rabo</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1002</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">3</div>
+                    <div class="member-info">
+                        <h3>Blessing Frankuko</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1003</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">4</div>
+                    <div class="member-info">
+                        <h3>Bashir Abdullahi</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1004</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">5</div>
+                    <div class="member-info">
+                        <h3>Ummulkusum Saba Abubakar</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1005</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">6</div>
+                    <div class="member-info">
+                        <h3>Muhibat Abdul Mumin Adamu</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1006</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">7</div>
+                    <div class="member-info">
+                        <h3>Emmanuel Stella Ojochide</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1007</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">8</div>
+                    <div class="member-info">
+                        <h3>Balkisu Halidu</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1008</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">9</div>
+                    <div class="member-info">
+                        <h3>Abdullahi Hannatu Jibril</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1009</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">10</div>
+                    <div class="member-info">
+                        <h3>Usman Muslimat Zu Nuraini</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1010</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">11</div>
+                    <div class="member-info">
+                        <h3>Stephen Solomon</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1011</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">12</div>
+                    <div class="member-info">
+                        <h3>Adam Mas'ud Sharif</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1012</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">13</div>
+                    <div class="member-info">
+                        <h3>Muazu Haruna Doma</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1013</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">14</div>
+                    <div class="member-info">
+                        <h3>Hauwa Hassan Musa</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1014</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">15</div>
+                    <div class="member-info">
+                        <h3>Rukkaya Hussaina Musa</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1015</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">16</div>
+                    <div class="member-info">
+                        <h3>Saidu Mohammed</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1016</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">17</div>
+                    <div class="member-info">
+                        <h3>Naufal Usman Wada</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1017</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">18</div>
+                    <div class="member-info">
+                        <h3>Mahmud Khadijah</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1018</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">19</div>
+                    <div class="member-info">
+                        <h3>Mkpouto Precious Samuel</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1019</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">20</div>
+                    <div class="member-info">
+                        <h3>Sarah Ehioyowoicho Apeh</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1020</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">21</div>
+                    <div class="member-info">
+                        <h3>Yahaya Mohammed</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1021</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">22</div>
+                    <div class="member-info">
+                        <h3>Musa Mansur</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1023</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">23</div>
+                    <div class="member-info">
+                        <h3>Clara Maiyaki Samuel</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1024</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">24</div>
+                    <div class="member-info">
+                        <h3>Aneke Chisom Marvelous</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1025</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">25</div>
+                    <div class="member-info">
+                        <h3>Salim Haruna Doma</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1026</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">26</div>
+                    <div class="member-info">
+                        <h3>Muhammad Amina Baba</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1027</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">27</div>
+                    <div class="member-info">
+                        <h3>Ibrahim Fatima Binta</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1028</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">28</div>
+                    <div class="member-info">
+                        <h3>Abdulhakim Abdullahi</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1029</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">29</div>
+                    <div class="member-info">
+                        <h3>Monye Deborah Ifeoma</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1030</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">30</div>
+                    <div class="member-info">
+                        <h3>Aishat Yusuf</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1031</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">31</div>
+                    <div class="member-info">
+                        <h3>Hauwa Walida Adam</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1032</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">32</div>
+                    <div class="member-info">
+                        <h3>Hussaina Abdullahi</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1033</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">33</div>
+                    <div class="member-info">
+                        <h3>Fatima Haliru</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1034</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">34</div>
+                    <div class="member-info">
+                        <h3>Fatima Chado Muhammad</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1035</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">35</div>
+                    <div class="member-info">
+                        <h3>Divine Jagaba</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1036</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">36</div>
+                    <div class="member-info">
+                        <h3>Umar Muhammad Gurusu</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1037</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-number">37</div>
+                    <div class="member-info">
+                        <h3>Amina Idris Masaga</h3>
+                        <p class="matric">AKU25/FEDU/HIS/1038</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact/Admin Section -->
+        <section id="contact" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="user" aria-hidden="true"></i> Contact & Administrator</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-card">
+                    <h3>Administrator</h3>
+                    <div class="admin-info">
+                        <p><strong>Name:</strong> Abubakar Muhammad Nurudeen</p>
+                        <p><strong>Email:</strong> <a href="mailto: nurudeensolograph@gmail.com" class="email-link">nurudeensolograph@gmail.com</a></p>
+                        <p><strong>WhatsApp:</strong> <a href="tel:09017769742">09017769742</a></p>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-light);">
+                            For issues accessing the portal, assignment submissions, or course-related inquiries, please contact the administrator.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <h3>Quick Links</h3>
+                    <div class="quick-links">
+                        <a href="https://forms.gle/g2GkgZWvnDixEJWZA" target="_blank" class="quick-link"><i data-lucide="file-plus" aria-hidden="true"></i> Upload here</a>
+                        <a href="https://drive.google.com/drive/folders/1oO91AE7ut9D-6tl25gT373Fub84W7vEx" target="_blank" class="quick-link"><i data-lucide="clipboard-list" aria-hidden="true"></i> All Assignments</a>
+                        <a href="https://drive.google.com/drive/folders/1e-VRbGgF0Rl4Rl81xs0ubyfCtYLX225g" target="_blank" class="quick-link"><i data-lucide="book-open" aria-hidden="true"></i> Lecture Materials</a>
+                        <a href="https://drive.google.com/drive/folders/1Z4SbjeLzsa9hy1riXlYtO1-I6IlMjBy5" target="_blank" class="quick-link"><i data-lucide="images" aria-hidden="true"></i> Class Photos</a>
+                        <a href="https://drive.google.com/drive/folders/1bEi9B4mSGAPGFV6YhdduTtrPrSNICIUv" target="_blank" class="quick-link"><i data-lucide="play-square" aria-hidden="true"></i> Class Videos</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Photo Lightbox (tap a photo to view it full size) -->
+    <div id="photoLightbox" class="photo-lightbox" onclick="closePhotoLightbox()">
+        <span class="photo-lightbox-close" onclick="closePhotoLightbox()">&times;</span>
+        <img id="photoLightboxImg" src="" alt="Full size photo">
+    </div>
+
+    <script>
+        function openPhotoLightbox(src) {
+            document.getElementById('photoLightboxImg').src = src;
+            document.getElementById('photoLightbox').classList.add('active');
+        }
+        function closePhotoLightbox() {
+            document.getElementById('photoLightbox').classList.remove('active');
+        }
+    </script>
+
+    <script src="api-config.js"></script>
+    <script src="script.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+});
+</script>
+
+</body>
+</html>
