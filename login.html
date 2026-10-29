@@ -8,57 +8,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Typography-only refinement: all page text remains unchanged. */
-        .login-page,
-        .login-page input,
-        .login-page button {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .login-header h3 {
-            font-size: clamp(1.15rem, 4.3vw, 1.55rem);
-            font-weight: 700;
-            line-height: 1.4;
-            letter-spacing: -0.45px;
-        }
-
-        .login-header .institution-name {
-            font-size: 0.88rem !important;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-            line-height: 1.55;
-        }
-
-        .login-form-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-        }
-
-        .form-group input {
-            font-size: 1rem;
-            font-weight: 400;
-        }
-
-        .form-group:has(#rememberMe) label {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .login-btn {
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.1px;
-        }
-
-        .login-footer {
-            font-size: 0.84rem;
-            line-height: 1.6;
-        }
-
         /* Scoped override for the login page only, matched to reference design */
         html, body {
             width: 100%;
@@ -223,53 +175,110 @@
             right: 16px;
         }
 
-        /* Final typography overrides: font styling and size only */
+        /* Login-page polish: typography, spacing, form clarity, and button states */
         .login-page,
         .login-page input,
         .login-page button {
-            font-family: 'Inter', Arial, sans-serif !important;
+            font-family: 'Inter', Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
+        .login-container {
+            padding: 28px 22px 32px;
+            align-items: center;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+        }
+        .login-header { text-align: center; }
+        .login-logo {
+            max-width: 112px;
+            height: auto;
+            margin-bottom: 10px;
+        }
         .login-header h3 {
-            font-size: clamp(1.15rem, 4.2vw, 1.5rem) !important;
-            font-weight: 700 !important;
-            line-height: 1.45 !important;
-            letter-spacing: -0.035em !important;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.45;
+            letter-spacing: -0.015em;
+            margin: 8px 0 6px;
         }
         .login-header .institution-name {
-            font-size: 0.88rem !important;
-            font-weight: 500 !important;
-            letter-spacing: 0.015em !important;
-            line-height: 1.6 !important;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px !important;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: 0;
+            text-transform: none;
+            margin-top: 4px;
         }
         .login-form-title {
-            font-size: 0.82rem !important;
-            font-weight: 700 !important;
-            letter-spacing: 0.09em !important;
-            line-height: 1.5 !important;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            line-height: 1.5;
+            margin-top: 18px;
+            margin-bottom: 14px;
         }
-        .form-group input {
-            font-size: 1rem !important;
-            font-weight: 400 !important;
-            letter-spacing: 0 !important;
+        .login-form {
+            padding: 20px;
+            border-radius: 14px;
+        }
+        .form-group { margin-bottom: 14px; }
+        .form-group label:not(:has(#rememberMe)) {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            margin: 0 0 6px;
+        }
+        .form-group input:not([type="checkbox"]) {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            min-height: 48px;
+            padding: 13px 14px;
+            border-radius: 9px;
+        }
+        .form-group:has(#rememberMe) {
+            margin-top: 2px;
+            margin-bottom: 0;
         }
         .form-group:has(#rememberMe) label {
-            font-size: 0.9rem !important;
-            font-weight: 500 !important;
-            letter-spacing: -0.01em !important;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.5;
         }
         .login-btn {
-            font-size: 1rem !important;
-            font-weight: 600 !important;
-            letter-spacing: 0 !important;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            min-height: 48px;
+            padding: 13px 16px;
+            border-radius: 9px;
+            transition: filter 160ms ease, transform 160ms ease;
         }
+        .login-btn:hover { filter: brightness(0.96); }
+        .login-btn:active { transform: translateY(1px); }
         .login-footer {
-            font-size: 0.84rem !important;
-            font-weight: 400 !important;
-            line-height: 1.65 !important;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            line-height: 1.6;
+            padding-top: 16px;
         }
-        .login-footer a {
-            font-weight: 700 !important;
+        .login-footer a { font-weight: 600; }
+        .login-footer p:last-child {
+            font-size: 12px !important;
+            line-height: 1.6;
+        }
+        @media (max-width: 380px) {
+            .login-container { padding: 22px 16px 28px; }
+            .login-logo { max-width: 96px; }
+            .login-header h3 { font-size: 16px; }
+            .login-form { padding: 16px; }
         }
 
     </style>
