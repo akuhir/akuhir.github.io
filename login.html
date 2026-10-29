@@ -6,7 +6,59 @@
     <title>Class Portal - Login</title>
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* Typography-only refinement: all page text remains unchanged. */
+        .login-page,
+        .login-page input,
+        .login-page button {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .login-header h3 {
+            font-size: clamp(1.15rem, 4.3vw, 1.55rem);
+            font-weight: 700;
+            line-height: 1.4;
+            letter-spacing: -0.45px;
+        }
+
+        .login-header .institution-name {
+            font-size: 0.88rem !important;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            line-height: 1.55;
+        }
+
+        .login-form-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+        }
+
+        .form-group input {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .form-group:has(#rememberMe) label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .login-btn {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1px;
+        }
+
+        .login-footer {
+            font-size: 0.84rem;
+            line-height: 1.6;
+        }
+
         /* Scoped override for the login page only, matched to reference design */
         html, body {
             width: 100%;
