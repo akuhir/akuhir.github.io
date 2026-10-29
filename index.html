@@ -88,13 +88,35 @@
                     <p>Your central hub for announcements, assignments, lecture notes, class materials and more. Stay connected with your History & International Relations class.</p>
                     <p class="user-info">Logged in as: <strong id="userDisplay"></strong></p>
                     <!-- ✏️ UPDATE THIS whenever you make changes to the portal -->
-                    <p class="last-updated">Last updated: October 2026</p>
+                    <p class="last-updated">Last updated: September 2026</p>
                 </div>
 
             </div>
 
             <!-- ==================================================== -->
-           
+            <!-- Monthly spotlight: Quote of the Month + Person of the Month -->
+            <!-- The shared backend updates these cards for every student. -->
+            <!-- ==================================================== -->
+            <div class="spotlight-grid" id="spotlightGrid">
+                <div class="quote-card" id="quoteCard">
+                    <span class="spotlight-label">Quote of the Month</span>
+                    <div class="spotlight-icon"><i data-lucide="quote" aria-hidden="true"></i></div>
+                    <p class="quote-text"></p>
+                    <p class="quote-author"></p>
+                </div>
+
+                <div class="person-card" id="personCard">
+                    <span class="spotlight-label">Person of the Month</span>
+                    <div class="person-photo-wrap">
+                        <img id="personWeekPhotoDisplay" src="" alt="Person of the Month" class="person-photo" hidden>
+                        <div id="personPhotoFallback" class="person-photo-fallback">
+                            <i data-lucide="user" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <h3 class="person-name"></h3>
+                    <p class="person-note"></p>
+                </div>
+            </div>
         </section>
 
         <!-- Admin Dashboard: weekly spotlight management -->
@@ -136,7 +158,6 @@
                     </form>
                 </div>
             </div>
-            <p class="admin-storage-note"><i data-lucide="info" aria-hidden="true"></i> Published changes are loaded from the shared backend so all students can see the same monthly spotlight. If the backend is unavailable, the homepage keeps its default content.</p>
         </section>
 
         <!-- Announcements Section -->
