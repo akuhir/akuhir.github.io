@@ -202,7 +202,6 @@
 <a class="nav-link" data-section="videos" href="#videos"><i aria-hidden="true" data-lucide="play-square"></i>VIDEOS</a>
 <a class="nav-link" data-section="class-members" href="#class-members"><i aria-hidden="true" data-lucide="users"></i>CLASS MEMBERS</a>
 <a class="nav-link" data-section="contact" href="#contact"><i aria-hidden="true" data-lucide="mail"></i>CONTACT</a>
-<button class="nav-link nav-theme-btn" id="themeToggle" title="Toggle dark mode"><i aria-hidden="true" data-lucide="moon"></i>DARK MODE</button>
 <button class="nav-link nav-logout-btn" id="logoutBtn"><i aria-hidden="true" data-lucide="log-out"></i>LOGOUT</button>
 </nav>
 <!-- Main Content -->
@@ -236,7 +235,7 @@
     <div class="person-card" id="personCard">
         <span class="spotlight-label">Person of the Month</span>
         <div class="person-photo-wrap">
-            <img id="personWeekPhotoDisplay" src="" alt="Person of the Month" class="person-photo" hidden>
+            <img id="personWeekPhotoDisplay" src="" alt="Person of the Month" class="person-photo photo-zoomable" hidden role="button" tabindex="0" aria-label="View Person of the Month photo full size" onclick="openPhotoLightbox(this.src)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPhotoLightbox(this.src)}">
             <div id="personPhotoFallback" class="person-photo-fallback">
                 <i data-lucide="user" aria-hidden="true"></i>
             </div>
@@ -1042,7 +1041,7 @@
 <div class="contact-card admin-contact-card">
 <div class="admin-info">
 <div class="admin-profile">
-<img class="admin-profile-photo" id="adminProfilePhoto" src="" alt="Administrator profile photo" />
+<img class="admin-profile-photo photo-zoomable" id="adminProfilePhoto" src="" alt="Administrator profile photo" role="button" tabindex="0" aria-label="View administrator photo full size" onclick="openPhotoLightbox(this.src)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPhotoLightbox(this.src)}" />
 <h4 class="admin-profile-name" id="adminProfileName"></h4>
 <p class="admin-profile-alias" id="adminProfileAlias"></p>
 <div class="admin-contact-actions">
@@ -1080,9 +1079,9 @@ For issues accessing the portal, assignment submissions, or course-related inqui
 </section>
 </main>
 <!-- Photo Lightbox (tap a photo to view it full size) -->
-<div class="photo-lightbox" id="photoLightbox" onclick="closePhotoLightbox()">
-<span class="photo-lightbox-close" onclick="closePhotoLightbox()">×</span>
-<img alt="Full size photo" id="photoLightboxImg" src=""/>
+<div class="photo-lightbox" id="photoLightbox" onclick="closePhotoLightbox()" role="dialog" aria-modal="true" aria-label="Photo viewer">
+<span class="photo-lightbox-close" role="button" tabindex="0" aria-label="Close photo viewer" onclick="event.stopPropagation();closePhotoLightbox()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();closePhotoLightbox()}">×</span>
+<img alt="Full size photo" id="photoLightboxImg" src="" onclick="event.stopPropagation()"/>
 </div>
 <script>
         function openPhotoLightbox(src) {
@@ -1092,6 +1091,9 @@ For issues accessing the portal, assignment submissions, or course-related inqui
         function closePhotoLightbox() {
             document.getElementById('photoLightbox').classList.remove('active');
         }
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') closePhotoLightbox();
+        });
     </script>
 <script>
 // Edit administrator details in this single configuration object.

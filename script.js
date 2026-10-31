@@ -19,9 +19,6 @@ class ClassPortal {
             return;
         }
 
-        // Initialize theme
-        this.initializeTheme();
-
         // Setup navigation
         this.setupNavigation();
 
@@ -41,32 +38,8 @@ class ClassPortal {
         this.loadSection('home');
     }
 
-    initializeTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            this.updateThemeButton();
-        }
-
-        const themeToggle = document.getElementById('themeToggle');
-        themeToggle.addEventListener('click', () => this.toggleTheme());
-    }
-
-    toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        this.updateThemeButton();
-    }
-
-    updateThemeButton() {
-        const themeToggle = document.getElementById('themeToggle');
-        const isDark = document.body.classList.contains('dark-mode');
-        themeToggle.textContent = isDark ? '☀️' : '🌙';
-    }
-
     setupNavigation() {
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.nav-link[data-section]');
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const sideNavbar = document.getElementById('sideNavbar');
         
@@ -109,7 +82,7 @@ class ClassPortal {
         }
 
         // Update nav active state
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.nav-link[data-section]');
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('data-section') === sectionId) {
@@ -560,12 +533,6 @@ document.addEventListener('keydown', (e) => {
         // Implement search modal
     }
 
-    // Alt + D for dark mode toggle
-    if (e.altKey && e.key === 'd') {
-        if (window.portal) {
-            window.portal.toggleTheme();
-        }
-    }
 });
 
 // Service Worker registration (for offline support in future)
