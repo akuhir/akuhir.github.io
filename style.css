@@ -1925,3 +1925,21 @@ body.dark-mode {
     --accent-light: #f5f5f5;
     --border: #e0e0e0;
 }
+/* FIX: Push LOGOUT to the very bottom of the navigation bar. */
+#sideNavbar {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    box-sizing: border-box !important;
+    padding-bottom: 24px !important;
+    overflow-y: auto;
+}
+
+#sideNavbar #logoutBtn {
+    display: flex !important;
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+    bottom: auto !important;
+}
