@@ -13,14 +13,31 @@ const STUDENTS_FILE = process.env.STUDENTS_FILE || '/etc/secrets/students.json';
 const DATA_DIR = process.env.DATA_DIR || (process.env.RENDER ? '/var/data' : path.join(__dirname, 'data'));
 const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
 const CONTENT_FILE = path.join(DATA_DIR, 'spotlights.json');
+
 if (!JWT_SECRET || JWT_SECRET.length < 32) {
   console.error('FATAL: Set JWT_SECRET to a random secret of at least 32 characters.');
   process.exit(1);
 }
+
 fs.mkdirSync(DATA_DIR, { recursive: true });
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'https://akuhir.github.io').split(',').map(s => s.trim()).filter(Boolean);
-app.use(cors({ origin(origin, cb) { if (!origin || allowedOrigins.includes(origin)) return cb(null, true); return cb(new Error('Origin is not allowed by CORS')); } }));
+
+// Allow both the existing GitHub Pages site and the Vercel frontend.
+const allowedOrigins = (
+  process.env.ALLOWED_ORIGINS ||
+  'https://akuhir.github.io,https://archivves.vercel.app'
+).split(',').map(s => s.trim()).filter(Boolean);
+
+app.use(cors({
+  origin(origin, cb) {
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    console.warn(`CORS blocked origin: ${origin}`);
+    return cb(new Error('Origin is not allowed by CORS'));
+  },
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json({ limit: '1mb' }));
 app.use('/uploads', express.static(UPLOAD_DIR, { maxAge: '1d' }));
 
