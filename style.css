@@ -2026,3 +2026,23 @@ body.dark-mode {
     --accent-light: #f5f5f5;
     --border: #e0e0e0;
 }
+/* ADMIN PROFILE PHOTO: larger frame and full image coverage */
+#adminProfilePhoto.admin-profile-photo {
+    width: 190px !important;
+    height: 190px !important;
+    min-width: 190px;
+    min-height: 190px;
+    object-fit: cover !important;
+    object-position: center center !important;
+    border-radius: 50% !important;
+    display: block;
+    cursor: zoom-in;
+}
+
+/* Prevent the image from shrinking inside its container */
+.admin-profile-photo {
+    flex-shrink: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+    background: transparent;
+}
