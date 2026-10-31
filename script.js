@@ -294,6 +294,7 @@ class ClassPortal {
                     formData.append('photo', pendingPhotoFile, pendingPhotoFile.name || 'person-month.jpg');
                     const photoResult = await apiRequest(`/api/admin/${encodeURIComponent(department)}/person-of-week/photo`, { method: 'POST', body: formData });
                     person = fromApiPerson(photoResult.data) || person;
+                    if (!person.photo) throw new Error('The upload endpoint did not return a photo URL. Check the backend photo-upload response and storage configuration.');
                 }
                 savedPerson = person;
                 delete personPhotoPreview.dataset.pendingImage;
@@ -419,15 +420,20 @@ class ClassPortal {
             const name = personCard.querySelector('.person-name');
             const description = personCard.querySelector('.person-note');
             if (person === null) {
-                if (photo) photo.style.display = 'none';
+                if (photo) { photo.hidden = true; photo.style.display = 'none'; photo.removeAttribute('src'); }
                 if (fallback) fallback.style.display = 'flex';
                 if (name) name.textContent = 'No Person of the Month selected yet';
                 if (description) description.textContent = 'Check back soon for the next featured student.';
             } else {
                 if (name && person.name) name.textContent = person.name;
                 if (description && person.description) description.textContent = person.description;
-                if (photo && person.photo) { photo.src = person.photo; photo.style.display = ''; if (fallback) fallback.style.display = 'none'; }
-                else if (photo && !person.photo) { photo.style.display = 'none'; if (fallback) fallback.style.display = 'flex'; }
+                if (photo && person.photo) {
+                    photo.onerror = () => { photo.hidden = true; photo.style.display = 'none'; if (fallback) fallback.style.display = 'flex'; };
+                    photo.onload = () => { photo.hidden = false; photo.style.display = ''; if (fallback) fallback.style.display = 'none'; };
+                    photo.hidden = false;
+                    photo.src = person.photo;
+                    if (fallback) fallback.style.display = 'none';
+                } else if (photo) { photo.hidden = true; photo.style.display = 'none'; if (fallback) fallback.style.display = 'flex'; }
             }
         }
         if (quoteCard && quote !== undefined) {
