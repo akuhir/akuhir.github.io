@@ -1804,3 +1804,52 @@ img {
 .admin-storage-note { display: flex; align-items: flex-start; gap: 9px; margin-top: 22px; color: var(--text-light); font-size: .92rem; }
 .admin-storage-note [data-lucide] { flex: 0 0 auto; width: 20px; }
 .admin-only[hidden] { display: none !important; }
+/* AKUM portal updates: append this block to the END of style.css */
+
+/* Wider Person of the Month portrait; image remains fully tappable. */
+.person-photo-wrap {
+    width: clamp(150px, 32vw, 190px);
+    height: clamp(150px, 32vw, 190px);
+    margin: 0 auto 18px;
+    cursor: zoom-in;
+}
+
+.person-photo {
+    object-fit: contain;
+    background: var(--accent-light);
+}
+
+.person-photo[hidden] {
+    display: none !important;
+}
+
+.admin-profile-photo {
+    width: 150px;
+    height: 150px;
+    cursor: zoom-in;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.person-photo-wrap:has(.person-photo:not([hidden])):hover,
+.admin-profile-photo:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.person-photo-wrap:has(.person-photo:not([hidden])):focus-within,
+.admin-profile-photo:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 4px;
+}
+
+/* The dark-mode option has been removed; keep the portal in its normal light theme. */
+body.dark-mode {
+    --primary: #8b0000;
+    --primary-dark: #660000;
+    --secondary: #8b0000;
+    --secondary-dark: #660000;
+    --text: #333333;
+    --text-light: #666666;
+    --accent: #ffffff;
+    --accent-light: #f5f5f5;
+    --border: #e0e0e0;
+}
