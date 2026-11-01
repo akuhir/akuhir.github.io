@@ -285,17 +285,28 @@ class ClassPortal {
             }
             try {
                 personMessage.textContent = 'Publishing to all students…';
-                const result = await apiRequest(`/api/admin/${encodeURIComponent(department)}/person-of-week`, {
-                    method: 'PUT', body: JSON.stringify({ name, description })
-                });
-                let person = fromApiPerson(result.data) || { name, description, photo: existing?.photo || '' };
+                let photoUrl = existing?.photo || '';
                 if (pendingPhotoFile) {
-                    const formData = new FormData();
-                    formData.append('photo', pendingPhotoFile, pendingPhotoFile.name || 'person-month.jpg');
-                    const photoResult = await apiRequest(`/api/admin/${encodeURIComponent(department)}/person-of-week/photo`, { method: 'POST', body: formData });
-                    person = fromApiPerson(photoResult.data) || person;
-                    if (!person.photo) throw new Error('The upload endpoint did not return a photo URL. Check the backend photo-upload response and storage configuration.');
+                    personMessage.textContent = 'Uploading photo securely…';
+                    const cloudForm = new FormData();
+                    cloudForm.append('file', pendingPhotoFile, pendingPhotoFile.name || 'person-month.jpg');
+                    cloudForm.append('upload_preset', 'Akumclass');
+                    const cloudResponse = await fetch('https://api.cloudinary.com/v1_1/wecijjcu/image/upload', {
+                        method: 'POST',
+                        body: cloudForm
+                    });
+                    const cloudData = await cloudResponse.json().catch(() => ({}));
+                    if (!cloudResponse.ok || !cloudData.secure_url) {
+                        throw new Error(cloudData.error?.message || 'Cloudinary photo upload failed.');
+                    }
+                    photoUrl = cloudData.secure_url;
                 }
+                const result = await apiRequest(`/api/admin/${encodeURIComponent(department)}/person-of-week`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ name, description, ...(photoUrl ? { photo: photoUrl } : {}) })
+                });
+                const person = fromApiPerson(result.data) || { name, description, photo: photoUrl };
+                if (pendingPhotoFile && !person.photo) throw new Error('The backend did not return the saved photo URL.');
                 savedPerson = person;
                 delete personPhotoPreview.dataset.pendingImage;
                 pendingPhotoFile = null;
