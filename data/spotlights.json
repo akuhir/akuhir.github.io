@@ -6,5 +6,10 @@
     "updatedAt": "2026-11-01T22:25:26.826Z",
     "updatedBy": "AKU24/FE/HIS/1034"
   },
-  "quote": null
+  "quote": {
+    "quote": "It always seems impossible until it's done",
+    "author": "Nelson Mandela",
+    "updatedAt": "2026-11-01T22:28:37.948Z",
+    "updatedBy": "AKU24/FE/HIS/1034"
+  }
 }
