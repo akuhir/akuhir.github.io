@@ -151,7 +151,7 @@ class ClassPortal {
     isAdmin() {
         const adminMatricNumbers = [
             'AKU24/FE/HIS/1034',
-            'AKU24/FE/HIS/1036',
+            'AKU24/FE/HIS/1037',
             'AKU25/FEDU/HIS/1010'
         ];
         return localStorage.getItem('currentUserRole') === 'admin' && adminMatricNumbers.includes(String(localStorage.getItem('currentUser') || '').trim().toUpperCase());
