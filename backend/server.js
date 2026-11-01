@@ -55,11 +55,54 @@ function loadStudents() {
     isActive: s.isActive !== false && s.active !== false
   })).filter(s => s.matric && s.name);
 }
-function readContent() {
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+const GITHUB_CONTENT_PATH = (process.env.GITHUB_CONTENT_PATH || 'data/spotlights.json').replace(/^\/+/, '');
+const GITHUB_BRANCH = process.env.GITHUB_BRANCH || 'main';
+let githubWriteQueue = Promise.resolve();
+
+async function githubReadContent() {
+  if (!GITHUB_TOKEN || !GITHUB_REPOSITORY) return null;
+  const url = `https://api.github.com/repos/${GITHUB_REPOSITORY}/contents/${GITHUB_CONTENT_PATH.split('/').map(encodeURIComponent).join('/')}`;
+  const response = await fetch(url, {
+    headers: { Authorization: `Bearer ${GITHUB_TOKEN}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }
+  });
+  if (response.status === 404) return { person: null, quote: null, _sha: null };
+  if (!response.ok) throw new Error(`GitHub read failed (${response.status}): ${(await response.text()).slice(0, 300)}`);
+  const file = await response.json();
+  const decoded = Buffer.from(String(file.content || '').replace(/\n/g, ''), 'base64').toString('utf8');
+  const data = JSON.parse(decoded);
+  return { person: data.person || null, quote: data.quote || null, _sha: file.sha };
+}
+async function readContent() {
+  const remote = await githubReadContent();
+  if (remote) return remote;
   try { return JSON.parse(fs.readFileSync(CONTENT_FILE, 'utf8')); }
   catch (e) { if (e.code === 'ENOENT') return { person: null, quote: null }; throw e; }
 }
-function writeContent(data) {
+async function writeContent(data) {
+  if (GITHUB_TOKEN && GITHUB_REPOSITORY) {
+    const task = githubWriteQueue.then(async () => {
+      const current = await githubReadContent();
+      const payload = { person: data.person || null, quote: data.quote || null };
+      const body = {
+        message: `Update H.I.S monthly spotlights (${new Date().toISOString()})`,
+        content: Buffer.from(JSON.stringify(payload, null, 2), 'utf8').toString('base64'),
+        branch: GITHUB_BRANCH
+      };
+      if (current && current._sha) body.sha = current._sha;
+      const url = `https://api.github.com/repos/${GITHUB_REPOSITORY}/contents/${GITHUB_CONTENT_PATH.split('/').map(encodeURIComponent).join('/')}`;
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${GITHUB_TOKEN}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (!response.ok) throw new Error(`GitHub save failed (${response.status}): ${(await response.text()).slice(0, 300)}`);
+    });
+    githubWriteQueue = task.catch(() => {});
+    await task;
+    return;
+  }
   const tmp = `${CONTENT_FILE}.${process.pid}.${Date.now()}.tmp`;
   fs.writeFileSync(tmp, JSON.stringify(data, null, 2), { encoding: 'utf8', mode: 0o600 });
   fs.renameSync(tmp, CONTENT_FILE);
@@ -86,7 +129,7 @@ function safeDeletePhoto(photoUrl) {
 app.get('/health', (_req, res) => {
   let roster = 'unavailable';
   try { roster = `${loadStudents().length} student records loaded`; } catch (_) {}
-  res.json({ status: 'ok', storage: 'json-file', database: 'none', roster });
+  res.json({ status: 'ok', storage: (GITHUB_TOKEN && GITHUB_REPOSITORY) ? 'github-json' : 'local-json', database: 'none', roster });
 });
 
 // Existing matric-number + part-of-name login, verified server-side against the private Secret File.
@@ -113,15 +156,15 @@ app.post('/api/auth/login', (req, res) => {
 });
 app.get('/api/me', bearer, (req, res) => res.json({ success:true, user:{ matric:req.user.matric, matricNo:req.user.matric, name:req.user.name, department:req.user.department, role:req.user.role } }));
 
-// Public monthly content; legacy URL names retained so the existing frontend can be wired with minimal changes.
-app.get('/api/:department/person-of-week', (req,res) => {
+// Public monthly content; legacy endpoint names are retained for frontend compatibility.
+app.get('/api/:department/person-of-week', async (req,res) => {
   if (req.params.department !== 'hir') return res.status(404).json({success:false,message:'Department not found.'});
-  try { return res.json({success:true,data:publicPerson(readContent().person)}); }
+  try { const content = await readContent(); return res.json({success:true,data:publicPerson(content.person)}); }
   catch(e) { console.error('Read person:',e.message); return res.status(500).json({success:false,message:'Could not read monthly content.'}); }
 });
-app.get('/api/:department/quote-of-week', (req,res) => {
+app.get('/api/:department/quote-of-week', async (req,res) => {
   if (req.params.department !== 'hir') return res.status(404).json({success:false,message:'Department not found.'});
-  try { return res.json({success:true,data:publicQuote(readContent().quote)}); }
+  try { const content = await readContent(); return res.json({success:true,data:publicQuote(content.quote)}); }
   catch(e) { console.error('Read quote:',e.message); return res.status(500).json({success:false,message:'Could not read monthly content.'}); }
 });
 const upload = multer({ storage:multer.diskStorage({
@@ -132,35 +175,46 @@ const upload = multer({ storage:multer.diskStorage({
   cb(ok?null:new Error('Only JPEG, PNG, WEBP, or GIF images are allowed.'),ok);
 }});
 function uploadError(err,req,res,next) { if (err) return res.status(400).json({success:false,message:err.message || 'Photo upload failed.'}); next(); }
-app.put('/api/admin/:department/person-of-week', bearer, adminOnly, (req,res) => {
+const validCloudinaryPhoto = value => typeof value === 'string' && value.startsWith('https://res.cloudinary.com/wecijjcu/image/upload/') && value.length < 2000;
+app.put('/api/admin/:department/person-of-week', bearer, adminOnly, async (req,res) => {
   if (req.params.department !== 'hir') return res.status(404).json({success:false,message:'Department not found.'});
   const name=String(req.body?.name || '').trim(), description=String(req.body?.description || '').trim();
+  const photo = req.body?.photo === undefined ? undefined : String(req.body.photo || '').trim();
   if (!name || name.length>150 || !description || description.length>3000) return res.status(400).json({success:false,message:'Enter a name (max 150 characters) and description (max 3000 characters).'});
-  try { const content=readContent(); content.person={...(content.person||{}),name,description,photo:content.person?.photo||'',updatedAt:new Date().toISOString(),updatedBy:req.user.matric}; writeContent(content); return res.json({success:true,data:publicPerson(content.person)}); }
-  catch(e) { console.error('Save person:',e.message); return res.status(500).json({success:false,message:'Could not save Person of the Month.'}); }
+  if (photo !== undefined && photo && !validCloudinaryPhoto(photo)) return res.status(400).json({success:false,message:'The photo URL is not a valid H.I.S Cloudinary image URL.'});
+  try {
+    const content=await readContent();
+    content.person={...(content.person||{}),name,description,photo:photo === undefined ? (content.person?.photo||'') : photo,updatedAt:new Date().toISOString(),updatedBy:req.user.matric};
+    await writeContent(content);
+    return res.json({success:true,data:publicPerson(content.person)});
+  } catch(e) { console.error('Save person:',e.message); return res.status(500).json({success:false,message:'Could not save Person of the Month. Check GitHub storage configuration and permissions.'}); }
 });
-app.post('/api/admin/:department/person-of-week/photo', bearer, adminOnly, upload.single('photo'), uploadError, (req,res) => {
+// Legacy local photo route retained for older clients.
+app.post('/api/admin/:department/person-of-week/photo', bearer, adminOnly, upload.single('photo'), uploadError, async (req,res) => {
   if (req.params.department !== 'hir') return res.status(404).json({success:false,message:'Department not found.'});
   if (!req.file) return res.status(400).json({success:false,message:'Choose an image first.'});
-  try { const content=readContent(); if (!content.person) { fs.unlinkSync(req.file.path); return res.status(400).json({success:false,message:'Save the person name and description before uploading the photo.'}); }
-    const old=content.person.photo; content.person.photo=`/uploads/${req.file.filename}`; content.person.updatedAt=new Date().toISOString(); content.person.updatedBy=req.user.matric; writeContent(content); safeDeletePhoto(old); return res.json({success:true,data:publicPerson(content.person)});
+  try {
+    const content=await readContent();
+    if (!content.person) { fs.unlinkSync(req.file.path); return res.status(400).json({success:false,message:'Save the person name and description before uploading the photo.'}); }
+    const old=content.person.photo; content.person.photo=`/uploads/${req.file.filename}`; content.person.updatedAt=new Date().toISOString(); content.person.updatedBy=req.user.matric;
+    await writeContent(content); safeDeletePhoto(old); return res.json({success:true,data:publicPerson(content.person)});
   } catch(e) { console.error('Upload person photo:',e.message); return res.status(500).json({success:false,message:'Could not save the photo.'}); }
 });
-app.delete('/api/admin/:department/person-of-week', bearer, adminOnly, (req,res) => {
+app.delete('/api/admin/:department/person-of-week', bearer, adminOnly, async (req,res) => {
   if (req.params.department !== 'hir') return res.status(404).json({success:false,message:'Department not found.'});
-  try { const content=readContent(); safeDeletePhoto(content.person?.photo); content.person=null; writeContent(content); return res.json({success:true,message:'Person of the Month deleted.'}); }
+  try { const content=await readContent(); safeDeletePhoto(content.person?.photo); content.person=null; await writeContent(content); return res.json({success:true,message:'Person of the Month deleted.'}); }
   catch(e) { console.error('Delete person:',e.message); return res.status(500).json({success:false,message:'Could not delete Person of the Month.'}); }
 });
-app.put('/api/admin/:department/quote-of-week', bearer, adminOnly, (req,res) => {
+app.put('/api/admin/:department/quote-of-week', bearer, adminOnly, async (req,res) => {
   if (req.params.department !== 'hir') return res.status(404).json({success:false,message:'Department not found.'});
   const quote=String(req.body?.quoteText ?? req.body?.quote ?? '').trim(), author=String(req.body?.quoteAuthor ?? req.body?.author ?? '').trim();
   if (!quote || quote.length>1200 || !author || author.length>150) return res.status(400).json({success:false,message:'Enter a quote (max 1200 characters) and author (max 150 characters).'});
-  try { const content=readContent(); content.quote={quote,author,updatedAt:new Date().toISOString(),updatedBy:req.user.matric}; writeContent(content); return res.json({success:true,data:publicQuote(content.quote)}); }
-  catch(e) { console.error('Save quote:',e.message); return res.status(500).json({success:false,message:'Could not save Quote of the Month.'}); }
+  try { const content=await readContent(); content.quote={quote,author,updatedAt:new Date().toISOString(),updatedBy:req.user.matric}; await writeContent(content); return res.json({success:true,data:publicQuote(content.quote)}); }
+  catch(e) { console.error('Save quote:',e.message); return res.status(500).json({success:false,message:'Could not save Quote of the Month. Check GitHub storage configuration and permissions.'}); }
 });
-app.delete('/api/admin/:department/quote-of-week', bearer, adminOnly, (req,res) => {
+app.delete('/api/admin/:department/quote-of-week', bearer, adminOnly, async (req,res) => {
   if (req.params.department !== 'hir') return res.status(404).json({success:false,message:'Department not found.'});
-  try { const content=readContent(); content.quote=null; writeContent(content); return res.json({success:true,message:'Quote of the Month deleted.'}); }
+  try { const content=await readContent(); content.quote=null; await writeContent(content); return res.json({success:true,message:'Quote of the Month deleted.'}); }
   catch(e) { console.error('Delete quote:',e.message); return res.status(500).json({success:false,message:'Could not delete Quote of the Month.'}); }
 });
 app.use((req,res)=>res.status(404).json({success:false,message:'Route not found.'}));
