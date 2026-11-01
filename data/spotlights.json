@@ -1,4 +1,10 @@
 {
-  "person": null,
+  "person": {
+    "name": "Tanko Shekwonuzayi Glory",
+    "description": "As History students, we spend our days studying people, their stories, and the footprints they leave behind. But today, we turn the spotlight on one of our own.\n\nThis month, we celebrate Shekwonuzayi Tanko Glory, fondly known as \"Diplomat\" a course mate whose presence adds its own flavour to our class community.\n\nBeyond the lectures, assignments, and all the academic wahala 🤧, we appreciate having you as part of this journey.\n\nMay your story be filled with remarkable achievements, beautiful opportunities, and milestones worth remembering.\n\nKeep making history, Glory! May your dream of becoming a diplomat come true. And please, make sure you keep up with that your oyinbo accent too. 😅❤️",
+    "photo": "https://res.cloudinary.com/wecijjcu/image/upload/v1793571924/wavuxen7ex0kpabmpf5b.jpg",
+    "updatedAt": "2026-11-01T22:25:26.826Z",
+    "updatedBy": "AKU24/FE/HIS/1034"
+  },
   "quote": null
 }
