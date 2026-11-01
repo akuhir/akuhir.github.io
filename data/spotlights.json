@@ -1,11 +1,5 @@
 {
-  "person": {
-    "name": "Vvvvvv",
-    "description": "Ccccc",
-    "photo": "https://res.cloudinary.com/wecijjcu/image/upload/v1793567932/raway0r7td3rccfmx7a2.jpg",
-    "updatedAt": "2026-11-01T21:18:53.561Z",
-    "updatedBy": "AKU24/FE/HIS/1034"
-  },
+  "person": null,
   "quote": {
     "quote": "Fffff",
     "author": "Cfff",
