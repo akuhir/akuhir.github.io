@@ -2,7 +2,7 @@
   "name": "akuhir-json-backend",
   "version": "1.0.0",
   "private": true,
-  "description": "AKUHIR Render backend using a private JSON student file and JSON content storage; no PostgreSQL.",
+  "description": "AKUHIR backend with private student authentication, monthly spotlight storage, and MongoDB-backed real-time chat.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -11,7 +11,9 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "multer": "^2.0.1"
+    "multer": "^2.0.1",
+    "mongoose": "^8.9.5",
+    "socket.io": "^4.8.1"
   },
   "engines": {
     "node": ">=18"

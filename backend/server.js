@@ -5,6 +5,9 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const http = require('http');
+const { Server } = require('socket.io');
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = process.env.PORT || 10000;
@@ -219,4 +222,109 @@ app.delete('/api/admin/:department/quote-of-week', bearer, adminOnly, async (req
 });
 app.use((req,res)=>res.status(404).json({success:false,message:'Route not found.'}));
 app.use((err,req,res,next)=>{ console.error('Request error:',err.message); res.status(400).json({success:false,message:err.message || 'Request failed.'}); });
-app.listen(PORT,()=>console.log(`AKUHIR JSON backend listening on ${PORT}; content directory: ${DATA_DIR}; roster file: ${STUDENTS_FILE}`));
+
+// Departmental Lounge: MongoDB-backed real-time chat, isolated from spotlight storage.
+const httpServer = http.createServer(app);
+const io = new Server(httpServer, {
+  cors: { origin: allowedOrigins, methods: ['GET', 'POST'] },
+  transports: ['websocket', 'polling']
+});
+const chatMessageSchema = new mongoose.Schema({
+  senderMatric: { type: String, required: true, index: true },
+  senderName: { type: String, required: true },
+  text: { type: String, default: '', maxlength: 2000 },
+  createdAt: { type: Date, default: Date.now, index: true },
+  deleted: { type: Boolean, default: false },
+  deletedAt: { type: Date, default: null },
+  replyTo: {
+    id: String, senderMatric: String, senderName: String,
+    text: String, deleted: { type: Boolean, default: false }
+  }
+}, { versionKey: false });
+chatMessageSchema.index({ createdAt: -1 });
+const ChatMessage = mongoose.models.ChatMessage || mongoose.model('ChatMessage', chatMessageSchema);
+let mongoReady = false;
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 10000 })
+    .then(() => { mongoReady = true; console.log('Departmental Lounge connected to MongoDB.'); })
+    .catch(err => console.error('MongoDB chat connection failed:', err.message));
+} else {
+  console.warn('MONGODB_URI is not set. Departmental Lounge will remain unavailable.');
+}
+const onlineSockets = new Map();
+function onlineCount() { return onlineSockets.size; }
+function publicMessage(doc) {
+  return {
+    id: String(doc._id), senderMatric: doc.senderMatric, senderName: doc.senderName,
+    text: doc.deleted ? '' : doc.text, createdAt: doc.createdAt,
+    deleted: !!doc.deleted,
+    replyTo: doc.replyTo ? {
+      id: doc.replyTo.id, senderMatric: doc.replyTo.senderMatric,
+      senderName: doc.replyTo.senderName, text: doc.replyTo.deleted ? '' : doc.replyTo.text,
+      deleted: !!doc.replyTo.deleted
+    } : null
+  };
+}
+io.use((socket, next) => {
+  try {
+    const raw = String(socket.handshake.auth?.token || '');
+    if (!raw) return next(new Error('Please log in to use the Departmental Lounge.'));
+    const user = jwt.verify(raw, JWT_SECRET);
+    if (!user.matric || user.department !== 'hir') return next(new Error('Department access required.'));
+    socket.user = {
+      matric: String(user.matric).trim().toUpperCase(),
+      name: String(user.name || 'Student').trim().slice(0, 120),
+      role: user.role === 'admin' ? 'admin' : 'student',
+      department: user.department
+    };
+    next();
+  } catch (_) { next(new Error('Your session is invalid or expired. Please log in again.')); }
+});
+io.on('connection', async socket => {
+  if (!mongoReady) { socket.emit('chat:error', { message: 'Chat storage is temporarily unavailable. Please try again shortly.' }); socket.disconnect(true); return; }
+  socket.join('departmental-lounge');
+  onlineSockets.set(socket.id, socket.user.matric);
+  io.to('departmental-lounge').emit('presence:count', onlineCount());
+  try {
+    const history = await ChatMessage.find({}).sort({ createdAt: -1 }).limit(100).lean();
+    socket.emit('chat:history', history.reverse().map(publicMessage));
+  } catch (err) { socket.emit('chat:error', { message: 'Could not load chat history.' }); }
+
+  socket.on('chat:send', async payload => {
+    try {
+      const text = String(payload?.text || '').trim();
+      if (!text || text.length > 2000) return socket.emit('chat:error', { message: 'Messages must contain 1–2000 characters.' });
+      let replyTo = null;
+      if (payload?.replyToId) {
+        if (!mongoose.isValidObjectId(payload.replyToId)) return socket.emit('chat:error', { message: 'That message can no longer be replied to.' });
+        const original = await ChatMessage.findById(payload.replyToId).lean();
+        if (original) replyTo = { id: String(original._id), senderMatric: original.senderMatric, senderName: original.senderName, text: original.deleted ? '' : original.text, deleted: !!original.deleted };
+      }
+      const saved = await ChatMessage.create({ senderMatric: socket.user.matric, senderName: socket.user.name, text, replyTo });
+      io.to('departmental-lounge').emit('chat:new', publicMessage(saved));
+    } catch (err) { console.error('Chat send failed:', err.message); socket.emit('chat:error', { message: 'Message could not be saved. Please try again.' }); }
+  });
+
+  socket.on('chat:delete', async payload => {
+    try {
+      if (!mongoose.isValidObjectId(payload?.messageId)) return;
+      const message = await ChatMessage.findById(payload.messageId);
+      if (!message || message.deleted) return;
+      const ownsMessage = message.senderMatric === socket.user.matric;
+      const isAdmin = socket.user.role === 'admin';
+      if (!ownsMessage && !isAdmin) return socket.emit('chat:error', { message: 'You can only delete your own messages.' });
+      message.deleted = true;
+      message.text = '';
+      message.deletedAt = new Date();
+      await message.save();
+      io.to('departmental-lounge').emit('chat:deleted', publicMessage(message));
+    } catch (err) { console.error('Chat delete failed:', err.message); socket.emit('chat:error', { message: 'Message could not be deleted.' }); }
+  });
+
+  socket.on('disconnect', () => {
+    onlineSockets.delete(socket.id);
+    io.to('departmental-lounge').emit('presence:count', onlineCount());
+  });
+});
+httpServer.listen(PORT, () => console.log(`AKUHIR backend listening on ${PORT}; content directory: ${DATA_DIR}; roster file: ${STUDENTS_FILE}`));
+
