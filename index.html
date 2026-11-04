@@ -1079,17 +1079,14 @@ For issues accessing the portal, assignment submissions, or course-related inqui
 </div>
 </section>
 <section class="content-section" id="departmental-lounge">
-<div class="lounge-shell">
- <div class="lounge-heading"><div><p class="lounge-eyebrow">H.I.S DIGITAL ARCHIVES</p><h2>Chats</h2><p>A shared space for 100L and 200L students.</p></div><div class="lounge-presence"><span class="lounge-live-dot"></span><span id="loungeOnlineCount">Connecting…</span></div></div>
- <div class="lounge-chat-card">
-  <div class="lounge-chat-top"><div><strong>Chats</strong><small>Be respectful. Keep the conversation constructive.</small></div><span id="loungeConnection" class="lounge-connection">Connecting</span></div>
-  <div id="loungeMessages" class="lounge-messages" aria-live="polite"><div class="lounge-empty">Loading conversations…</div></div>
-  <div id="loungeReplyPreview" class="lounge-reply-preview" hidden><div><small>Replying to</small><strong id="loungeReplyName"></strong><p id="loungeReplyText"></p></div><button type="button" id="loungeCancelReply" aria-label="Cancel reply">×</button></div>
-  <form id="loungeComposer" class="lounge-composer"><div class="lounge-composer-tools"><button type="button" id="loungeEmojiButton" aria-label="Add emoji">☺</button><div id="loungeEmojiTray" class="lounge-emoji-tray" hidden><button type="button">😀</button><button type="button">😂</button><button type="button">🥹</button><button type="button">❤️</button><button type="button">🔥</button><button type="button">👏</button><button type="button">🙏</button><button type="button">👍</button><button type="button">🤝</button><button type="button">🤧</button><button type="button">😅</button><button type="button">🎉</button></div></div><textarea id="loungeMessageInput" rows="1" maxlength="2000" placeholder="Write a message…" aria-label="Write a message"></textarea><button type="submit">Send</button></form>
-  <p class="lounge-footnote">Messages are visible to department members. You can delete your own messages for everyone.</p>
- </div>
+<div class="chat-app" id="chatApp">
+ <div class="chat-header"><h2 class="chat-title">CHATS</h2><div class="chat-presence"><span id="loungeDot" class="chat-dot"></span><span id="loungeOnlineCount">Connecting…</span><span id="loungeConnection" class="lounge-connection"></span></div></div>
+ <div id="loungeMessages" class="lounge-messages" aria-live="polite"><div class="lounge-empty">Loading…</div></div>
+ <button type="button" id="loungeJump" class="chat-jump" aria-label="Jump to latest message"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg><b id="loungeJumpCount"></b></button>
+ <div id="loungeReplyPreview" class="lounge-reply-preview" hidden><div><strong id="loungeReplyName"></strong><p id="loungeReplyText"></p></div><button type="button" id="loungeCancelReply" aria-label="Cancel reply">×</button></div>
+ <form id="loungeComposer" class="lounge-composer" autocomplete="off"><div class="lounge-composer-tools"><button type="button" id="loungeEmojiButton" class="chat-icon-btn" aria-label="Add emoji"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M8 14.5c1 1.4 2.4 2.1 4 2.1s3-.7 4-2.1"/><circle cx="9" cy="9.8" r=".6" fill="currentColor"/><circle cx="15" cy="9.8" r=".6" fill="currentColor"/></svg></button><div id="loungeEmojiTray" class="lounge-emoji-tray" hidden><button type="button">😀</button><button type="button">😂</button><button type="button">🥹</button><button type="button">❤️</button><button type="button">🔥</button><button type="button">👏</button><button type="button">🙏</button><button type="button">👍</button><button type="button">🤝</button><button type="button">🤧</button><button type="button">😅</button><button type="button">🎉</button></div></div><textarea id="loungeMessageInput" rows="1" maxlength="2000" placeholder="Message" aria-label="Write a message"></textarea><button type="submit" class="chat-send" aria-label="Send message"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4l17.5-7.5c.8-.3.8-1.5 0-1.8L3.4 3.6c-.7-.3-1.4.4-1.2 1.1L4 10.5l9 1.5-9 1.5-1.8 5.8c-.2.7.5 1.4 1.2 1.1z"/></svg></button></form>
 </div></section>
-\n</main>
+</main>
 <!-- Photo Lightbox (tap a photo to view it full size) -->
 <div class="photo-lightbox" id="photoLightbox" onclick="closePhotoLightbox()" role="dialog" aria-modal="true" aria-label="Photo viewer">
 <span class="photo-lightbox-close" role="button" tabindex="0" aria-label="Close photo viewer" onclick="event.stopPropagation();closePhotoLightbox()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();closePhotoLightbox()}">×</span>
@@ -1134,7 +1131,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 <script src="api-config.js"></script>
-<script src="script.js"></script>\n<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>\n<script src="lounge.js"></script>
+<script src="script.js"></script>
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+<script src="lounge.js?v=2"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   if (window.lucide) {
