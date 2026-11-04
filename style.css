@@ -2045,4 +2045,76 @@ body.dark-mode {
     max-width: none !important;
     padding: 0 !important;
     background: transparent;
-}\n/* Departmental Lounge */\n#departmental-lounge{padding:24px 16px 40px}.lounge-shell{max-width:920px;margin:auto}.lounge-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:8px 0 20px}.lounge-heading h2{margin:4px 0;font-size:clamp(1.5rem,4vw,2rem)}.lounge-heading p{margin:5px 0;opacity:.72}.lounge-eyebrow{font-size:.72rem;letter-spacing:.13em;font-weight:800;color:#b18a48}.lounge-presence{white-space:nowrap;font-size:.85rem;font-weight:700;color:#24845c}.lounge-live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#25b878;margin-right:7px}.lounge-chat-card{background:var(--card-bg,#fff);border:1px solid #8884;border-radius:16px;overflow:hidden;box-shadow:0 8px 28px #0001}.lounge-chat-top{display:flex;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid #8883}.lounge-chat-top strong,.lounge-chat-top small{display:block}.lounge-chat-top small{opacity:.65;margin-top:4px}.lounge-connection{font-size:.75rem;color:#b7791f}.lounge-connection.connected{color:#24845c}.lounge-messages{height:min(58vh,600px);min-height:300px;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:13px;background:#88808}.lounge-empty{margin:auto;text-align:center;opacity:.6;padding:30px}.lounge-message{max-width:84%;align-self:flex-start;background:#eef0f2;border-radius:13px 13px 13px 4px;padding:10px 12px;overflow-wrap:anywhere;color:#222}.lounge-message.mine{align-self:flex-end;background:#e5f1e7;border-radius:13px 13px 4px 13px}.lounge-message-head{display:flex;gap:9px;align-items:center;margin-bottom:5px;font-size:.76rem}.lounge-message-head strong{color:#967039}.lounge-message-head time{opacity:.6;font-size:.7rem}.lounge-message-body{white-space:pre-wrap;line-height:1.45;font-size:.93rem}.lounge-reply-quote{border-left:3px solid #b18a48;padding:5px 8px;margin:4px 0 8px;background:#8882;border-radius:4px;font-size:.78rem}.lounge-reply-quote strong,.lounge-reply-quote span{display:block}.lounge-reply-quote span{opacity:.75;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.lounge-message-actions{display:flex;gap:12px;margin-top:7px}.lounge-message-actions button{border:0;padding:0;background:none;color:inherit;opacity:.65;font-size:.72rem;cursor:pointer}.lounge-deleted{opacity:.6;font-style:italic}.lounge-composer{display:flex;align-items:flex-end;gap:9px;padding:13px;border-top:1px solid #8883}.lounge-composer textarea{flex:1;resize:vertical;min-height:42px;max-height:120px;border:1px solid #8886;border-radius:12px;padding:11px;font:inherit;background:transparent;color:inherit}.lounge-composer button{border:0;border-radius:10px;padding:11px 16px;background:#8b6b37;color:white;font-weight:700;cursor:pointer}.lounge-composer-tools{position:relative}.lounge-composer-tools>button{font-size:1.4rem;padding:7px 10px;background:transparent;color:inherit}.lounge-emoji-tray{position:absolute;z-index:5;bottom:48px;left:0;width:210px;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:white;border:1px solid #8885;border-radius:12px;box-shadow:0 5px 20px #0002}.lounge-emoji-tray[hidden],.lounge-reply-preview[hidden]{display:none}.lounge-emoji-tray button{background:transparent;color:#222;padding:7px;font-size:1.2rem}.lounge-reply-preview{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 16px;background:#b18a481a;border-top:1px solid #8883}.lounge-reply-preview small,.lounge-reply-preview strong{display:block}.lounge-reply-preview p{margin:3px 0 0;font-size:.8rem;opacity:.7}.lounge-reply-preview>button{background:none;border:0;font-size:1.5rem;cursor:pointer;color:inherit}.lounge-footnote{margin:0;padding:0 15px 13px;font-size:.72rem;opacity:.58}@media(max-width:600px){#departmental-lounge{padding:18px 10px 30px}.lounge-messages{padding:12px;min-height:280px}.lounge-message{max-width:94%}.lounge-chat-top{padding:13px}.lounge-composer{gap:5px;padding:9px}.lounge-composer button[type=submit]{padding:11px 12px}}\n
+}
+
+/* ===== CHATS (Departmental Lounge) — messaging UI ===== */
+body.chat-open{overflow:hidden}
+body.chat-open .main-content{padding:0!important;max-width:none!important;margin:0!important}
+#departmental-lounge{padding:0}
+#departmental-lounge.active{display:block}
+#departmental-lounge .chat-app{--maroon:#800020;display:flex;flex-direction:column;width:100%;max-width:900px;margin:0 auto;height:var(--chat-h,calc(100vh - 64px));height:var(--chat-h,calc(100dvh - 64px));background:#fff;color:#1f2328;position:relative;overflow:hidden;border-left:1px solid #eceef1;border-right:1px solid #eceef1}
+#departmental-lounge .chat-header{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:#fff;border-bottom:1px solid #eceef1}
+#departmental-lounge .chat-title{margin:0;font-size:1.05rem;font-weight:800;letter-spacing:.08em;color:#1f2328}
+#departmental-lounge .chat-presence{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;color:#5b6270;white-space:nowrap}
+#departmental-lounge .chat-dot{width:8px;height:8px;border-radius:50%;background:#b8bdc7;flex:none}
+#departmental-lounge .chat-dot.on{background:#22b573}
+#departmental-lounge .lounge-connection{font-size:.72rem;color:#b7791f;font-weight:600}
+#departmental-lounge .lounge-connection.connected{display:none}
+#departmental-lounge .lounge-messages{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:12px 12px 8px;display:flex;flex-direction:column;gap:2px;background:#fff}
+#departmental-lounge .lounge-empty{margin:auto;text-align:center;color:#8a92a0;font-size:.9rem;padding:24px}
+#departmental-lounge .chat-day{align-self:center;margin:12px 0 8px;padding:4px 12px;border-radius:999px;background:#f0f1f3;color:#6b7280;font-size:.7rem;font-weight:600}
+#departmental-lounge .lounge-message{display:flex;align-items:flex-end;gap:8px;max-width:100%;margin-top:8px;background:none;padding:0;border-radius:0;color:inherit;align-self:stretch}
+#departmental-lounge .lounge-message.cont{margin-top:2px}
+#departmental-lounge .lounge-message.mine{justify-content:flex-end}
+#departmental-lounge .chat-avatar{flex:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.78rem;font-weight:700;overflow:hidden;user-select:none}
+#departmental-lounge .chat-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+#departmental-lounge .chat-avatar.spacer{visibility:hidden}
+#departmental-lounge .chat-col{display:flex;flex-direction:column;max-width:78%;min-width:0}
+#departmental-lounge .lounge-message.mine .chat-col{align-items:flex-end}
+#departmental-lounge .lounge-bubble{position:relative;padding:7px 10px 5px;background:#F0F1F3;color:#1f2328;border-radius:18px 18px 18px 5px;overflow-wrap:anywhere;word-break:break-word;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:box-shadow .3s}
+#departmental-lounge .lounge-message.cont .lounge-bubble{border-top-left-radius:5px}
+#departmental-lounge .lounge-message.mine .lounge-bubble{background:#800020;color:#fff;border-radius:18px 18px 5px 18px}
+#departmental-lounge .lounge-message.mine.cont .lounge-bubble{border-top-right-radius:5px}
+#departmental-lounge .lounge-message.flash .lounge-bubble{box-shadow:0 0 0 3px rgba(128,0,32,.28)}
+#departmental-lounge .lounge-sender{display:block;font-size:.76rem;font-weight:700;margin-bottom:2px;line-height:1.3}
+#departmental-lounge .lounge-message-body{white-space:pre-wrap;line-height:1.42;font-size:.95rem}
+#departmental-lounge .lounge-deleted{font-style:italic;opacity:.7}
+#departmental-lounge .lounge-meta{display:flex;justify-content:flex-end;margin-top:1px}
+#departmental-lounge .lounge-meta time{font-size:.64rem;opacity:.6;line-height:1}
+#departmental-lounge .lounge-message.mine .lounge-meta time{color:rgba(255,255,255,.8);opacity:1}
+#departmental-lounge .lounge-reply-quote{border-left:3px solid #800020;background:rgba(128,0,32,.08);border-radius:8px;padding:5px 8px;margin:2px 0 5px;font-size:.78rem;cursor:pointer;min-width:0}
+#departmental-lounge .lounge-message.mine .lounge-reply-quote{border-left-color:#fff;background:rgba(255,255,255,.16)}
+#departmental-lounge .lounge-reply-quote strong{display:block;font-size:.74rem;color:#800020}
+#departmental-lounge .lounge-message.mine .lounge-reply-quote strong{color:#fff}
+#departmental-lounge .lounge-reply-quote span{display:block;opacity:.8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#departmental-lounge .lounge-message-actions{display:none;gap:6px;margin-top:5px}
+#departmental-lounge .lounge-message.show-actions .lounge-message-actions{display:flex}
+#departmental-lounge .lounge-message-actions button{border:1px solid #e1e4e8;background:#fff;color:#374151;border-radius:999px;padding:5px 12px;font-size:.74rem;font-weight:600;cursor:pointer}
+#departmental-lounge .lounge-message-actions button.danger{color:#b42318;border-color:#f3c9c4}
+#departmental-lounge .chat-jump{position:absolute;right:14px;bottom:86px;width:40px;height:40px;border-radius:50%;border:1px solid #e1e4e8;background:#fff;color:#800020;box-shadow:0 3px 10px rgba(0,0,0,.14);display:none;align-items:center;justify-content:center;cursor:pointer;z-index:4;padding:0}
+#departmental-lounge .chat-jump.show{display:flex}
+#departmental-lounge .chat-jump b{position:absolute;top:-6px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#800020;color:#fff;font-size:.68rem;line-height:18px;text-align:center}
+#departmental-lounge .chat-jump b:empty{display:none}
+#departmental-lounge .lounge-reply-preview{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;background:#fff;border-top:1px solid #eceef1}
+#departmental-lounge .lounge-reply-preview[hidden],#departmental-lounge .lounge-emoji-tray[hidden]{display:none}
+#departmental-lounge .lounge-reply-preview>div{flex:1;min-width:0;border-left:3px solid #800020;background:rgba(128,0,32,.07);border-radius:8px;padding:5px 9px}
+#departmental-lounge .lounge-reply-preview strong{display:block;font-size:.76rem;color:#800020}
+#departmental-lounge .lounge-reply-preview p{margin:0;font-size:.8rem;color:#4b5563;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#departmental-lounge .lounge-reply-preview>button{flex:none;width:32px;height:32px;border:0;border-radius:50%;background:#f0f1f3;color:#4b5563;font-size:1.2rem;line-height:1;cursor:pointer;padding:0}
+#departmental-lounge .lounge-composer{flex:none;display:flex;align-items:flex-end;gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid #eceef1;position:relative}
+#departmental-lounge .lounge-composer-tools{position:static}
+#departmental-lounge .chat-icon-btn{width:42px;height:42px;flex:none;border:0;border-radius:50%;background:transparent;color:#6b7280;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+#departmental-lounge .chat-icon-btn:hover{background:#f0f1f3}
+#departmental-lounge #loungeMessageInput{flex:1;min-width:0;resize:none;min-height:42px;max-height:120px;margin:0;padding:10px 16px;font:inherit;font-size:16px;line-height:1.35;color:#1f2328;background:#f6f7f9;border:1px solid #e1e4e8!important;border-radius:22px!important;box-shadow:none;overflow-y:auto}
+#departmental-lounge #loungeMessageInput:focus{border-color:#800020!important;box-shadow:0 0 0 3px rgba(128,0,32,.12)}
+#departmental-lounge .chat-send{width:44px;height:44px;flex:none;border:0;border-radius:50%;background:#800020;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+#departmental-lounge .chat-send:active{background:#66001a}
+#departmental-lounge .lounge-emoji-tray{position:absolute;z-index:6;left:10px;bottom:calc(100% + 6px);width:230px;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#fff;border:1px solid #e1e4e8;border-radius:14px;box-shadow:0 6px 22px rgba(0,0,0,.14)}
+#departmental-lounge .lounge-emoji-tray button{border:0;background:transparent;font-size:1.4rem;padding:7px;border-radius:10px;cursor:pointer}
+#departmental-lounge .lounge-emoji-tray button:hover{background:#f0f1f3}
+@media(max-width:600px){
+ #departmental-lounge .chat-app{border:0}
+ #departmental-lounge .chat-col{max-width:84%}
+ #departmental-lounge .lounge-messages{padding:10px 8px 6px}
+ #departmental-lounge .chat-header{padding:10px 14px}
+}
