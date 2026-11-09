@@ -176,6 +176,19 @@
           #contact .admin-contact-icon { width: 40px !important; height: 40px !important; flex-basis: 40px !important; }
         }
     </style>
+
+<style id="akuhir-responsive-fixes">
+/* Keep the homepage hero fully visible on desktop and mobile. */
+.class-photo { height: auto; max-height: none; }
+.class-photo img { display: block; width: 100%; height: auto; max-height: min(72vh, 680px); object-fit: contain; object-position: center; }
+/* Monthly quote appears first, followed by Person of the Month. */
+.spotlight-grid { display: grid; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+/* The member groups remain side by side on wide screens and stack on narrow screens. */
+.members-year-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 760px) { .members-year-columns { grid-template-columns: minmax(0, 1fr); } }
+/* Compact logged-in identity text. */
+.user-info #userDisplay { font-size: .88rem; font-weight: 600; }
+</style>
 </head>
 <body>
 <!-- Header with Hamburger Menu -->
@@ -185,7 +198,7 @@
 <span></span>
 <span></span>
 </button>
-<div class="navbar-title">H.I.S ARCHIVES</div>
+<div class="navbar-title">HOMO SAPIENS</div>
 <div class="navbar-controls">
 <img alt="AKUM Logo" class="navbar-logo-brand" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='inline';" src="images/logo.png"/>
 <span id="logoFallback" style="display:none;"><i aria-hidden="true" data-lucide="graduation-cap" style="width:26px;height:26px;color:#fff;"></i></span>
@@ -497,7 +510,7 @@
 </div>
 <div class="members-year-columns">
 <div aria-labelledby="members-aku24" class="member-year-group">
-<h3 class="member-year-heading" id="members-aku24">AKU24</h3>
+<h3 class="member-year-heading" id="members-aku24">200L</h3>
 <div class="class-members-container">
 <div class="member-card">
 <div class="member-number">1</div>
@@ -766,7 +779,7 @@
 </div></div>
 </div>
 <div aria-labelledby="members-aku25" class="member-year-group">
-<h3 class="member-year-heading" id="members-aku25">AKU25</h3>
+<h3 class="member-year-heading" id="members-aku25">100L</h3>
 <div class="class-members-container">
 <div class="member-card">
 <div class="member-number">1</div>

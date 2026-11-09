@@ -1,4 +1,12 @@
 // Portal Main Script
+function getStudentLevel(matricNumber) {
+    const matric = String(matricNumber || '').trim().toUpperCase();
+    if (matric === 'AKU25/FEDU/HIS/2001' || matric === 'AKU25/FEDU/HIS/2002') return '200L';
+    if (matric.startsWith('AKU24/')) return '200L';
+    if (matric.startsWith('AKU25/')) return '100L';
+    return '';
+}
+
 class ClassPortal {
     constructor() {
         this.currentUser = localStorage.getItem('currentUser');
@@ -131,7 +139,9 @@ class ClassPortal {
     displayUserInfo() {
         const userDisplay = document.getElementById('userDisplay');
         if (userDisplay) {
-            userDisplay.textContent = localStorage.getItem('currentUserName') || this.currentUser;
+            const name = localStorage.getItem('currentUserName') || this.currentUser;
+            const level = getStudentLevel(this.currentUser);
+            userDisplay.textContent = level ? `${name} · ${level}` : name;
         }
     }
 

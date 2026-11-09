@@ -79,6 +79,13 @@ function jumpTo(id) {
   t.scrollIntoView({ block: 'center', behavior: 'smooth' });
   t.classList.add('flash'); setTimeout(() => t.classList.remove('flash'), 1200);
 }
+function getStudentLevel(matricNumber) {
+  const matric = String(matricNumber || '').trim().toUpperCase();
+  if (matric === 'AKU25/FEDU/HIS/2001' || matric === 'AKU25/FEDU/HIS/2002') return '200L';
+  if (matric.startsWith('AKU24/')) return '200L';
+  if (matric.startsWith('AKU25/')) return '100L';
+  return '';
+}
 function render(m, cont) {
   const mine = isMine(m);
   const a = document.createElement('article');
@@ -93,7 +100,9 @@ function render(m, cont) {
 
   if (!mine && !cont) {
     const n = document.createElement('strong'); n.className = 'lounge-sender';
-    n.textContent = m.senderName || 'Student';
+    const senderName = m.senderName || 'Student';
+    const senderLevel = getStudentLevel(m.senderMatric);
+    n.textContent = senderLevel ? `${senderName} · ${senderLevel}` : senderName;
     n.style.color = `hsl(${hue(String(m.senderMatric || m.senderName || 'Student'))},55%,34%)`;
     bubble.append(n);
   }
